@@ -86,9 +86,9 @@ npm install react-native-reanimated react-native-gesture-handler react-native-sc
 
 npm install @react-navigation/stack
 
-npm install @expo/vector-icons -------> not used
+npm install @expo/vector-icons 
 
-npm install expo-font -------> not used
+npm install expo-font 
 
 npm install --save react-native-vector-icons
 
