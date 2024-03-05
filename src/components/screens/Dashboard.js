@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   },
   textStyle: {
     fontSize: 28,
-    color: 'black',
+    color: '#2C1FFD',
   },
   headingStyle: {
     fontSize: 30,

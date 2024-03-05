@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -27,79 +27,90 @@ const Signup = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Signup</Text>
-      <View style={styles.row}>
-        {/* Input fields */}
-        <View style={styles.column}>
-          <TextInput
-            style={styles.input}
-            placeholder="Unique ID"
-            value={uniqueId}
-            onChangeText={setUniqueId}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Position"
-            value={position}
-            onChangeText={setPosition}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry={true}
-            autoCapitalize="none"
-          />
+    <ImageBackground 
+      source={require('../assets/images/signup.jpg')} // Change the path to your background image
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Signup</Text>
+        <View style={styles.row}>
+          {/* Input fields */}
+          <View style={styles.column}>
+            <TextInput
+              style={styles.suinput}
+              placeholder="Unique ID"
+              value={uniqueId}
+              onChangeText={setUniqueId}
+            />
+            <TextInput
+              style={styles.suinput}
+              placeholder="Position"
+              value={position}
+              onChangeText={setPosition}
+            />
+            <TextInput
+              style={styles.suinput}
+              placeholder="Password"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={true}
+              autoCapitalize="none"
+            />
+          </View>
+          <View style={styles.column}>
+            <TextInput
+              style={styles.suinput}
+              placeholder="Name"
+              value={name}
+              onChangeText={setName}
+            />
+            <TextInput
+              style={styles.suinput}
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.suinput}
+              placeholder="Confirm Password"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry={true}
+              autoCapitalize="none"
+            />
+          </View>
         </View>
-        <View style={styles.column}>
-          <TextInput
-            style={styles.input}
-            placeholder="Name"
-            value={name}
-            onChangeText={setName}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-            autoCapitalize="none"
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Confirm Password"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry={true}
-            autoCapitalize="none"
-          />
-        </View>
+        {/* Signup button */}
+        <TouchableOpacity style={styles.button} onPress={handleSignup}>
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        {/* Link to Login */}
+        <TouchableOpacity onPress={navigateToLogin}>
+          <Text style={styles.linkText}>Already have an account? Login</Text>
+        </TouchableOpacity>
       </View>
-      {/* Signup button */}
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-      {/* Link to Login */}
-      <TouchableOpacity onPress={navigateToLogin}>
-        <Text style={styles.linkText}>Already have an account? Login</Text>
-      </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover', // or 'stretch'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0,0,0,0.5)', // You can adjust the opacity here
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#fff', // Adjust the text color to make it visible against the background
   },
   row: {
     flexDirection: 'row',
@@ -111,13 +122,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '48%', // Adjust width as needed
   },
-  input: {
+  suinput: {
     height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 10,
+    backgroundColor: '#fff', // Set background color to white to make it visible against the background
   },
   button: {
     width: '80%',
@@ -135,7 +147,7 @@ const styles = StyleSheet.create({
   },
   linkText: {
     fontSize: 16,
-    color: '#007bff',
+    color: '#fff', // Adjust the text color to make it visible against the background
     textDecorationLine: 'underline',
   },
 });
