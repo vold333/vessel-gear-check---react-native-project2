@@ -491,7 +491,7 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
                   onBlur={() => handleBlur(question.id)}
                   value={question.text}
                   editable={question.isEditable}
-                  selectTextOnFocus={question.isEditable}
+                  selectTextOnFocus={question.isEditable} required 
                 />
                  {!notesStates[index].showNotesInput && (
             <TouchableOpacity

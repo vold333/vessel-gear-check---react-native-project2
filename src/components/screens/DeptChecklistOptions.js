@@ -377,6 +377,7 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
     })));
     // Add a state for input heights
 const [inputHeights, setInputHeights] = useState({});
+const [submitted, setSubmitted] = useState(false); // Track if form has been submitted
 
 
     const navigation = useNavigation();
@@ -398,13 +399,15 @@ const [inputHeights, setInputHeights] = useState({});
 
     // Function to handle text input change
     const handleInputChange = (id, newText) => {
-        setQuestionsState(prevState =>
-          prevState.map(question => ({
-            ...question,
-            text: question.id === id ? newText : question.text,
-          }))
-        );
-      };
+      setQuestionsState(prevState =>
+        prevState.map(question => ({
+          ...question,
+          text: question.id === id ? newText : question.text,
+          textError: question.id === id ? !newText.trim() : question.textError,
+        }))
+      );
+    };
+    
 
       const handleRadioChange = (questionId, selectedValue) => {
         setQuestionsState(prevState =>
@@ -418,13 +421,34 @@ const [inputHeights, setInputHeights] = useState({});
               return {
                 ...question,
                 selectedValue: selectedValue, // Update the selected value for the matched question
-                radioButtons: updatedRadioButtons, // Apply the updated radio buttons to the matched question
+                radioButtons: updatedRadioButtons, 
+                radioError: false// Apply the updated radio buttons to the matched question
               };
             }
             return question; // Return other questions unchanged
           })
         );
       };
+      // Validate form
+  const validateForm = () => {
+    const updatedQuestions = questionsState.map(question => ({
+      ...question,
+      textError: !question.text.trim(), // Set textError true if text is empty
+      radioError: !question.selectedValue // Set radioError true if no radio option is selected
+    }));
+    setQuestionsState(updatedQuestions);
+
+    return updatedQuestions.every(question => !question.textError && !question.radioError);
+  };
+
+  // Handle form submission
+  const handleFormSubmit = (onSubmit) => {
+    setSubmitted(true); // Mark form as submitted to show errors
+
+    if (validateForm()) {
+      onSubmit(); // Proceed with submission if validation passes
+    }
+  };
       
       
 
@@ -508,7 +532,7 @@ const [inputHeights, setInputHeights] = useState({});
   <View key={index} style={styles2.questionContainer}>
     <View style={styles2.questionSubContainer}>
       <TextInput
-        style={[styles2.input, question.isEditable ? styles2.editableInput : styles2.nonEditableInput,
+        style={[styles2.input,question.textError && submitted ? styles2.errorInput : {}, question.isEditable ? styles2.editableInput : styles2.nonEditableInput,
           {height: Math.max(35, inputHeights[question.id] || 35)} ]}
         onChangeText={text => handleInputChange(question.id, text)}
         onBlur={() => handleBlur(question.id)}
@@ -517,7 +541,9 @@ const [inputHeights, setInputHeights] = useState({});
         selectTextOnFocus={question.isEditable}
         multiline={true} // Enable multiline input
         onContentSizeChange={(event) => handleContentSizeChange(question.id, event)} // Adjust height based on content
+        required
       />
+      {question.textError && submitted && <Text style={styles2.errorText}>This field is required.</Text>}
       <TouchableOpacity onPress={() => handleEditClick(question.id)} style={styles2.iconButton}>
         <Icon name="edit" size={24} color="#000" />
       </TouchableOpacity>
@@ -534,6 +560,7 @@ const [inputHeights, setInputHeights] = useState({});
           <Text>{radioButton.label}</Text>
         </TouchableOpacity>
       ))}
+       {question.radioError && submitted && <Text style={styles2.errorText}>Please select an option.</Text>}
     </View>
      {/* Position the delete icon at the bottom-right corner of the question container */}
      <View style={styles2.deleteIconPosition}>
@@ -546,7 +573,7 @@ const [inputHeights, setInputHeights] = useState({});
            <View style={styles2.buttonContainer}>
 
 <StyledButton title="Back" onPress={()=>handleBack(onBack)} backgroundColor="#e74c3c" />
-<StyledButton title="Submit" onPress={onSubmit} />
+<StyledButton title="Submit" onPress={()=>handleFormSubmit(onSubmit)} />
 
 </View>
           </ScrollView>
@@ -557,6 +584,8 @@ const [inputHeights, setInputHeights] = useState({});
     
 
     const styles2 = StyleSheet.create({
+      errorInput: { borderColor: 'red' },
+  errorText: { color: 'red' },
       headerContainer: {
         backgroundColor: '#007AFF',//'#FFFFFF', '#A59FFF', '#6C63FF', '#2C1FFD'
         borderRadius: 10,
