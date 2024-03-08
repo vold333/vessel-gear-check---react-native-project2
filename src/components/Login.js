@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = () => {
-    if (email && password) {
-      navigation.navigate('Dashboard');
-    } else {
-      alert('Please enter email and password');
+    if (!email.trim() || !password.trim()) {
+      setErrorMessage('*Note: Please enter email and password');
+      return;
     }
+
+    if (!validateEmail(email)) {
+      setErrorMessage('*Note: Please enter a valid email address');
+      return;
+    }
+
+    // Clear error message
+    setErrorMessage('');
+
+    navigation.navigate('Dashboard');
+    setEmail('');
+    setPassword('');
   };
 
   const togglePasswordVisibility = () => {
@@ -19,17 +32,21 @@ const Login = ({ navigation }) => {
   };
 
   const handleSignup = () => {
-    navigation.navigate('Signup'); // Navigate to the Signup screen
+    navigation.navigate('Signup');
   };
 
   const handleForgotPassword = () => {
-    // Handle forgot password logic
-    navigation.navigate('ForgotPassword'); 
+    navigation.navigate('ForgotPassword');
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
     <ImageBackground 
-      source={require('../assets/images/login.jpg')} // Change the path to your background image
+      source={require('../assets/images/login.jpg')}
       style={styles.backgroundImage}
       resizeMode="cover"
     >
@@ -52,9 +69,10 @@ const Login = ({ navigation }) => {
             autoCapitalize="none"
           />
           <TouchableOpacity onPress={togglePasswordVisibility}>
-            <Text style={styles.showHide}>{showPassword ? 'Hide' : 'Show'}</Text>
+            <Icon name={showPassword ? 'eye-off' : 'eye'} size={28} color="grey" />
           </TouchableOpacity>
         </View>
+        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
@@ -75,29 +93,29 @@ const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
-    resizeMode: 'cover', // or 'stretch'
+    resizeMode: 'cover',
   },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)', // You can adjust the opacity here
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
-    color: '#fff', // Adjust the text color to make it visible against the background
+    color: '#fff',
   },
   emailinput: {
     width: '80%',
     height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 25,
     paddingHorizontal: 10,
     marginBottom: 20,
-    backgroundColor: '#fff', // Set background color to white to make it visible against the background
+    backgroundColor: '#fff',
   },
   passwordContainer: {
     width: '80%',
@@ -105,26 +123,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 25,
     marginBottom: 20,
     paddingHorizontal: 10,
-    backgroundColor: '#fff', // Set background color to white to make it visible against the background
+    backgroundColor: '#fff',
   },
   passwordInput: {
     flex: 1,
     height: 50,
   },
-  showHide: {
-    fontSize: 16,
-    color: '#007bff',
-  },
   button: {
-    width: '80%',
+    width: '40%',
     height: 50,
     backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 25,
     marginBottom: 20,
   },
   buttonText: {
@@ -137,15 +151,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   linkText: {
-    fontSize: 16,
+    fontSize: 17,
     color: 'white',
     textDecorationLine: 'underline',
     marginRight: 10,
   },
   linkSeparator: {
-    fontSize: 16,
-    color: '#777',
+    fontSize: 20,
+    color: 'white',
     marginRight: 10,
+  },
+  errorMessage: {
+    color: 'gold',
+    marginBottom: 10,
   },
 });
 

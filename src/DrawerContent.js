@@ -1,3 +1,5 @@
+// DrawerContent.js
+
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
@@ -7,11 +9,12 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DrawerList = [
-  { icon: 'home-outline', label: 'Dashboard', navigateTo: 'Dashboard' },
+  { icon: 'home-outline', label: 'Home', navigateTo: 'Home' },
   { icon: 'account-multiple', label: 'Roles', navigateTo: 'Roles' },
   { icon: 'bookshelf', label: 'Checklist', navigateTo: 'Checklist' },
   { icon: 'chart-bar', label: 'Visualization', navigateTo: 'Visualization' },
   { icon: 'cog-outline', label: 'Settings', navigateTo: 'Settings' },
+  { icon: 'logout', label: 'Sign out', navigateTo: 'Login' },
 ];
 
 const DrawerLayout = ({ icon, label, navigateTo }) => {
@@ -65,3 +68,4 @@ const styles = StyleSheet.create({
 });
 
 export default DrawerContent;
+

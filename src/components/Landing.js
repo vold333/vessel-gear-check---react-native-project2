@@ -1,7 +1,6 @@
-//Landing.js
-
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'; // Assuming you're using FontAwesome, replace with your chosen icon library
 
 const Landing = ({ navigation }) => {
   const handleLoginPress = () => {
@@ -16,7 +15,10 @@ const Landing = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>Welcome to MyApp</Text>
         <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-          <Text style={styles.buttonText}>Get Started</Text>
+          <Text style={styles.buttonText}>
+            <Icon name="chevron-right" size={20} color="#fff" />
+            <Icon name="chevron-right" size={20} color="#fff" /> Get Started
+          </Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -47,12 +49,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 25,
   },
   buttonText: {
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+    flexDirection: 'row', // Add flexDirection to align the icon and text horizontally
+    alignItems: 'center', // Center the icon and text vertically
   },
 });
 
