@@ -17,6 +17,12 @@ import ChecklistScreen from './components/screens/ChecklistScreen';
 import CreateChecklistPage from './components/screens/CreateChecklistPage';
 import ModifyDefaultChecklist from './components/screens/ModifyDefaultChecklist';
 
+import NewChecklist from './components/screens/NewChecklist';
+import { AddNewItemScreen } from './components/screens/NewChecklist';
+import { EditItemsScreen } from './components/screens/NewChecklist';
+import { Properties } from './components/screens/Properties';
+
+
 import { SubmissionComponent } from './components/screens/DefaultDeptChecklistOptions';
 import {DeckComponent,EngineComponent,SafetyComponent,LogisticsComponent,HospitalityComponent} from './components/screens/DeptChecklistOptions';
 
@@ -143,7 +149,16 @@ const App = () => {
 
          <Stack.Screen name="DefaultAccomodationHospitality" component={DefaultAccomodationHospitality} options={{ headerShown: false }} />    
      
-     
+{/*****************************************Newchecklist****************************************************************************************/}
+         <Stack.Screen name="NewDepartment" component={NewChecklist} options={{ headerShown: true }}  initialParams={{ placeholderText: "Add a new department" }} />
+         <Stack.Screen name="NewChecklist" component={NewChecklist} />
+         <Stack.Screen name="AddNewItem" component={AddNewItemScreen} />
+         <Stack.Screen name="EditItemsScreen" component={EditItemsScreen} />
+
+
+         <Stack.Screen name="Properties" component={Properties} />
+      
+      
       </Stack.Navigator>
       
     </NavigationContainer></Provider>

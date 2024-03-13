@@ -7,7 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 // Define your buttons array as before
 const createChecklistButtons = [
-  { text: "New Checklist", path: "NewChecklist" }, // Adjust paths for React Navigation
+  { text: "New Checklist", path: "NewDepartment"  }, // Adjust paths for React Navigation
   { text: "Modify Default", path: "ModifyDefaultChecklist" },
   { text: "Back", path: "Home", style: { backgroundColor: 'blue', color: 'white' } }, // Adjust style as needed
 ];

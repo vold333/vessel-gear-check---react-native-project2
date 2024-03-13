@@ -26,19 +26,31 @@ export function ReusableButton({ buttonText, to, style, onClick }) {
 }
 
 // ChecklistMain function converted to React Native
-export function ChecklistMain({ content, buttons = [], additionalContent, boxStyle, showCard = true }) {
+export function ChecklistMain({ content, buttons = [],inputs, additionalContent, boxStyle, showCard = true }) {
+  console.log(buttons)
+  
   return (
     <ScrollView contentContainerStyle={[styles.boxContainer, boxStyle]}>
  <View style={styles.paper}>
         {showCard ? (
           <View style={styles.card}>
+            {/* Check if inputs is provided and is a function, then call it */}
+            {inputs && typeof inputs === 'function' ? inputs() : null}
+
+
             {additionalContent ? (
               additionalContent
             ) : (
+             
               buttons && Array.isArray(buttons) && buttons.map((button, index) => (
-                <ReusableButton key={index} buttonText={button.text} to={button.path} style={button.style} />
-              ))
+               
+                <ReusableButton key={index} buttonText={button.text} to={button.path} style={button.style} onClick={button.onClick} />
+                
+              )
+             )
+
             )}
+            
           </View>
         ) : null}
         {content}
