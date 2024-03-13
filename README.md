@@ -99,3 +99,5 @@ npm install react-native-screens react-native-safe-area-context
 npm install @react-navigation/drawer @react-navigation/stack
 
 npm install redux react-redux
+
+npm install @react-native-community/datetimepicker 
