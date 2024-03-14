@@ -1,7 +1,7 @@
 // SettingsScreen.js
 
 import React from 'react';
-import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 function SettingsScreen(props) {
@@ -13,15 +13,18 @@ function SettingsScreen(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.avatarContainer}>
-        <Image
-          source={require('../../assets/images/avatar.jpg')}
-          style={[styles.avatar, { borderRadius: 50 }]}
-        />
+      <View style={styles.middleContainer}>
+        <ImageBackground
+          source={require('../../assets/images/sailor.jpg')}
+          style={styles.backgroundImage}
+        >
+          <View style={styles.overlay}>
+            <TouchableOpacity style={styles.personalizationButton} onPress={handlePersonalizationPress}>
+              <Text style={styles.personalizationButtonText}>Personalization</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
       </View>
-      <TouchableOpacity style={styles.personalizationButton} onPress={handlePersonalizationPress}>
-        <Text style={styles.personalizationButtonText}>Personalization</Text>
-      </TouchableOpacity>
     </View>
   );
 }
@@ -31,18 +34,29 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff', // Optional: Set background color of the main container
   },
-  avatarContainer: {
+  middleContainer: {
+    flex: 1,
+    width: '100%',
     alignItems: 'center',
-    marginBottom: 20,
+    justifyContent: 'center',
   },
-  avatar: {
-    width: 100,
-    height: 100,
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'flex-end', // Align the button to the bottom of the container
+    alignItems: 'center',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.3)', // Adjust opacity as needed
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   personalizationButton: {
-    borderRadius: 10,
-    backgroundColor: 'lightblue',
+    borderRadius: 25,
+    backgroundColor: '#6544EC',
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 20,
@@ -50,6 +64,7 @@ const styles = StyleSheet.create({
   personalizationButtonText: {
     fontSize: 16,
     fontWeight: 'bold',
+    color:'white'
   },
 });
 

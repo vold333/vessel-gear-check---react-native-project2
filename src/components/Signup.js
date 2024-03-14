@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Modal } from 'react-native';
+import Icon from 'react-native-vector-icons/Fontisto'; // Import the icon library
 
 const Signup = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -7,9 +8,11 @@ const Signup = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [name, setName] = useState('');
   const [position, setPosition] = useState('');
+  const [otherPosition, setOtherPosition] = useState('');
   const [uniqueId, setUniqueId] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [isModalVisible, setIsModalVisible] = useState(false); // State for modal visibility
 
   // Validation function for Name
   const validateName = (text) => {
@@ -58,23 +61,55 @@ const Signup = ({ navigation }) => {
     }
   };
 
+  const handleSelectPosition = (selectedPosition) => {
+    if (selectedPosition === 'Other') {
+      setIsModalVisible(false); // Close the modal
+      setPosition('Other');
+      setOtherPosition('');
+    } else {
+      setPosition(selectedPosition);
+      setOtherPosition('');
+      setIsModalVisible(false); // Close the modal
+    }
+  };
+
   const handleSignup = () => {
+    let isValid = true;
+
     // Check if any required field is empty
-    if (!email || !password || !confirmPassword || !name || !position || !uniqueId) {
+    if (!email || !password || !confirmPassword || !name || !uniqueId) {
       setErrorMessage('Please fill in all the fields');
       setSuccessMessage('');
+      isValid = false;
+      return; // Stop the signup process
+    } else {
+      setErrorMessage('');
+    }
+
+    // Check if position is not selected or 'Other' is selected but other position is empty
+    if ((position.trim() === '' || position === 'Other') && otherPosition.trim() === '') {
+      setErrorMessage('*Position is required');
+      isValid = false;
+    } else {
+      setErrorMessage('');
+    }
+
+    // If any required field is empty or position is not selected, stop the signup process
+    if (!isValid) {
       return;
     }
 
     // Your signup logic goes here...
     setSuccessMessage('Signup Successful!');
+    setPosition('');
+    setOtherPosition('');
     setEmail('');
     setPassword('');
     setConfirmPassword('');
     setName('');
     setEmail('');
     setUniqueId('');
-  };
+};
 
   const navigateToLogin = () => {
     navigation.navigate('Login');
@@ -102,13 +137,14 @@ const Signup = ({ navigation }) => {
               }}
               onBlur={() => validateUniqueId(uniqueId)}
             />
-            <TextInput
-              style={styles.suinput}
-              placeholder="Position"
-              value={position}
-              maxLength={20}
-              onChangeText={setPosition}
-            />
+            <TouchableOpacity
+              style={styles.modalinput}
+              onPress={() => setIsModalVisible(true)} // Open modal when clicked
+            >
+              <Text style={[styles.modalOptionText, position === 'Other' && { color: 'black' }]}>
+                {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
+              </Text>
+            </TouchableOpacity>
             <TextInput
               style={styles.suinput}
               placeholder="Password"
@@ -165,6 +201,76 @@ const Signup = ({ navigation }) => {
         <TouchableOpacity onPress={navigateToLogin}>
           <Text style={styles.linkText}>Already have an account? Login</Text>
         </TouchableOpacity>
+        {/* Modal for selecting position */}
+      <Modal
+        visible={isModalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setIsModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Captain')}
+            >
+              <Text style={styles.modalOptionText}>Captain</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Bridge')}
+            >
+              <Text style={styles.modalOptionText}>Bridge</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Engine')}
+            >
+              <Text style={styles.modalOptionText}>Engine</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Logistics')}
+            >
+              <Text style={styles.modalOptionText}>Logistics</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Safety')}
+            >
+              <Text style={styles.modalOptionText}>Safety</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Hospitality')}
+            >
+              <Text style={styles.modalOptionText}>Hospitality</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.modalOption}
+              onPress={() => handleSelectPosition('Other')}
+            >
+              <Text style={styles.modalOptionText}>Other</Text>
+            </TouchableOpacity>
+            {position === 'Other' && (
+              <View style={styles.otherInputContainer}>
+                <TextInput
+                  style={styles.otherInput}
+                  placeholder="Specify Position"
+                  value={otherPosition}
+                  onChangeText={text => setOtherPosition(text)}
+                />
+                <TouchableOpacity
+                  style={styles.iconContainer}
+                  onPress={() => setIsModalVisible(false)}
+                >
+                  <Icon name="check" size={20} color="black" />
+                </TouchableOpacity>
+              </View>
+            )}
+          </View>
+        </View>
+      </Modal>
       </View>
     </ImageBackground>
   );
@@ -235,7 +341,48 @@ const styles = StyleSheet.create({
     color:'yellow',
     marginBottom: 10,
     fontWeight: 'bold'
-  }
+  },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    borderRadius: 10,
+    padding: 20,
+    width: '80%',
+    
+  },
+  modalOption: {
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    color: 'black',
+  },
+  modalOptionText:{
+    color:'black'
+  },
+  iconContainer: {
+    padding: 10,
+    backgroundColor: 'lightblue',
+    borderRadius: 9,
+    alignItems:'center'
+  },
+  modalinput: {
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 25,
+    padding: 10,
+    marginBottom: 10,
+    width: '100%',
+    backgroundColor: '#fff', // White background for input fields
+    color: "black",
+    paddingTop: 15,
+  },
 });
 
 export default Signup;

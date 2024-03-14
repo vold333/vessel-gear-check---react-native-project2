@@ -52,7 +52,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Auth" component={AuthStack} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={DashboardDrawer} options={{ headerShown: false }} />
-        <Stack.Screen name="Personalization" component={PersonalizationScreen} />
+        <Stack.Screen name="Personalization" component={PersonalizationScreen} options={{ headerTransparent: true, headerTintColor: 'white' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
