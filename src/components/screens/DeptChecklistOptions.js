@@ -557,7 +557,7 @@ const [submitted, setSubmitted] = useState(false); // Track if form has been sub
           <View style={styles2.radioButton}>
             {radioButton.selected && <View style={styles2.radioButtonInner} />}
           </View>
-          <Text>{radioButton.label}</Text>
+          <Text style={styles2.radiolabel}>{radioButton.label}</Text>
         </TouchableOpacity>
       ))}
        {question.radioError && submitted && <Text style={styles2.errorText}>Please select an option.</Text>}
@@ -584,6 +584,9 @@ const [submitted, setSubmitted] = useState(false); // Track if form has been sub
     
 
     const styles2 = StyleSheet.create({
+      radiolabel:{
+color:'black',
+      },
       errorInput: { borderColor: 'red' },
   errorText: { color: 'red' },
       headerContainer: {
@@ -672,12 +675,15 @@ radioButtonContainer : {
         borderWidth: 1,
         borderRadius: 5,
         marginRight: 10,
+        color:'black',
       },
       nonEditableInput: {
         borderWidth: 0,
+        color:'black',
       },
       editableInput: {
         borderColor: '#ddd',
+        color:'black',
       },
       iconButton: {
         padding: 10,

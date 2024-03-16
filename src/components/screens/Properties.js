@@ -141,7 +141,7 @@ export const Properties = () => {
             onPress={() => setShowDatePicker({ ...showDatePicker, [property]: true })}
             style={styles.input}
           >
-            <Text>{formatDate(inputValues[`${property}Date`], inputValues[`${property}Time`])}</Text>
+            <Text style={styles.label}>{formatDate(inputValues[`${property}Date`], inputValues[`${property}Time`])}</Text>
           </TouchableOpacity>
           {showDatePicker[property] && (
             <DateTimePicker
@@ -192,6 +192,7 @@ const styles = StyleSheet.create({
     label: {
       marginBottom: 5,
       fontWeight: 'bold',
+      color:'black',
     },
     input: {
         borderWidth: 1,

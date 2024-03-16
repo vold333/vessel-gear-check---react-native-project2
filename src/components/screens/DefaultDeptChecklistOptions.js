@@ -393,7 +393,8 @@ const styles22 = StyleSheet.create({
 export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,onBack}) => {
   const [notesStates, setNotesStates] = useState(questions.map(() => ({ showNotesInput: false, notes: '' })));
   const [questionsState, setQuestionsState] = useState(questions);
-  
+   // Add a state for input heights
+const [inputHeights, setInputHeights] = useState({});
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -465,6 +466,15 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
     
     
     
+    const handleContentSizeChange = (id, event) => {
+      if (event && event.nativeEvent && event.nativeEvent.contentSize) {
+        const { height } = event.nativeEvent.contentSize;
+        setInputHeights(prevHeights => ({
+          ...prevHeights,
+          [id]: height // Update the height for the specific question's input
+        }));
+      }
+    };
     
     
     
@@ -486,12 +496,15 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
               
               <View style={styles6.questionSubContainer}>
                 <TextInput
-                  style={[styles6.input, question.isEditable ? styles6.editableInput : styles6.nonEditableInput]}
+                  style={[styles6.input, question.isEditable ? styles6.editableInput : styles6.nonEditableInput,{height: Math.max(35, inputHeights[question.id] || 35)}]}
                   onChangeText={text => handleInputChange(question.id, text)}
                   onBlur={() => handleBlur(question.id)}
                   value={question.text}
                   editable={question.isEditable}
+                  multiline={true} // Enable multiline input
+                  onContentSizeChange={(event) => handleContentSizeChange(question.id, event)} // Adjust height based on content
                   selectTextOnFocus={question.isEditable} required 
+
                 />
                  {!notesStates[index].showNotesInput && (
             <TouchableOpacity
@@ -500,16 +513,16 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
                 updatedNotesStates[index].showNotesInput = true;
                 setNotesStates(updatedNotesStates);
               }}
-              style={styles.iconButton}
+              style={styles6.iconButton}
             >
-              <Icon name="note-add" size={24} />
+              <Icon name="note-add" size={24} color="black" />
             </TouchableOpacity>
           )}
              
               </View>
               
              
-        <View key={question.id} style={styles.question}>
+        <View key={question.id} style={styles6.question}>
         
 
           {!notesStates[index].showNotesInput ? (
@@ -522,7 +535,7 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
            >
              <Icon 
                name={question.selectedValue === option ? "radio-button-checked" : "radio-button-unchecked"} 
-               size={20} 
+               size={20}  color="black"
              />
              <Text style={styles6.radioButtonLabel}>
                {option === 'option1' ? 'Done' : option === 'option2' ? 'Not Yet Done' : 'Not Applicable'}
@@ -542,17 +555,17 @@ export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,o
                 }}
                 value={notesStates[index].notes}
                 placeholder="Add a note..."
-                style={styles.textInput}
+                style={styles6.notesInput}
               />
-              <View style={styles.actionButtons}>
-                <TouchableOpacity onPress={() => handleSaveNotes(index)} style={styles.iconButton}>
-                  <Icon name="save" size={24} />
+              <View style={styles6.actionButtons}>
+                <TouchableOpacity onPress={() => handleSaveNotes(index)} style={styles6.iconButton}>
+                  <Icon name="save" size={24} color="black" />
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => handleBackNotes(index)}
-                  style={styles.iconButton}
+                  style={styles6.iconButton}
                 >
-                  <Icon name="arrow-back" size={24} />
+                  <Icon name="arrow-back" size={24} color="black" />
                 </TouchableOpacity>
               </View>
             </View>
@@ -586,18 +599,25 @@ export  const StyledButton = ({ onPress, title, backgroundColor = '#007AFF', tex
   
 
 const styles6 = StyleSheet.create({
+  question:{
+color:'black',
+ },
+
   radioButtonContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: 'column',
+   // alignItems: 'center',
     marginBottom: 10,
   },
   radioButton: {
     flexDirection: 'row', // Ensure that children (the icon and label) are displayed in a row
     alignItems: 'center', // Center-align children vertically
     marginRight: 10, // Add some space between this button and the next element
+    color:'black',
+   // backgroundColor:'black',
   },
   radioButtonLabel: {
-    fontSize: 16,
+    color:'black',
+    fontSize: 14,
     marginLeft: 8, // Add some space between the icon and the label for clarity
   },
  
@@ -633,6 +653,8 @@ const styles6 = StyleSheet.create({
   iconButton: {
       padding: 10, // Add padding to increase the touchable area
       marginLeft: 5, // Optional: add some margin if icons are too close together
+      color:'black',
+      backgroundColor:'black',
     },
   safeArea: {
       flex: 1,
@@ -667,10 +689,12 @@ const styles6 = StyleSheet.create({
   
   nonEditableInput: {
       borderWidth: 0,
+      color:'black',
   },
   editableInput: {
       borderWidth: 1,
       borderColor: '#ddd',
+      color:'black',
   },
   
   questionSubContainer: {
@@ -703,14 +727,13 @@ const styles6 = StyleSheet.create({
       elevation: 3,
     },
     input: {
-      backgroundColor: '#F7F7F8',
-      borderRadius: 8,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      marginBottom: 10,
-      fontSize: 16,
-      borderWidth: 1,
-      borderColor: '#E1E1E1',
+      flex: 1,
+        padding: 10,
+        borderColor: '#ddd',
+        borderWidth: 1,
+        borderRadius: 5,
+        marginRight: 10,
+        color:'black',
     },
     radioGroup: {
       flexDirection: 'row',
@@ -730,10 +753,11 @@ const styles6 = StyleSheet.create({
       paddingVertical: 8,
       height: 100,
       textAlignVertical: 'top',
-      fontSize: 16,
+      fontSize: 12,
       borderWidth: 1,
       borderColor: '#E1E1E1',
       marginBottom: 10,
+      color:'black',
     },
     actionButtons: {
       flexDirection: 'row',
