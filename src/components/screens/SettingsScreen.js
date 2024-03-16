@@ -1,32 +1,71 @@
-import {useEffect} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+// SettingsScreen.js
+
+import React from 'react';
+import { StyleSheet, View, TouchableOpacity, Text, ImageBackground } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 function SettingsScreen(props) {
-  console.log(props);
-  useEffect(() => {
-    console.log('Hii');
-  }, []);
+  const navigation = useNavigation();
+
+  const handlePersonalizationPress = () => {
+    navigation.navigate('Personalization');
+  };
+
   return (
-    <View style={styles.viewStyle}>
-      <Text style={styles.textStyle}>This is Settings Screen</Text>
+    <View style={styles.container}>
+      <View style={styles.middleContainer}>
+        <ImageBackground
+          source={require('../../assets/images/sailor.jpg')}
+          style={styles.backgroundImage}
+        >
+          <View style={styles.overlay}>
+            <TouchableOpacity style={styles.personalizationButton} onPress={handlePersonalizationPress}>
+              <Text style={styles.personalizationButtonText}>Personalization</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
+      </View>
     </View>
   );
 }
+
 const styles = StyleSheet.create({
-  viewStyle: {
-    display: 'flex',
+  container: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#fff', // Optional: Set background color of the main container
+  },
+  middleContainer: {
     flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  textStyle: {
-    fontSize: 28,
-    color: 'black',
+  backgroundImage: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'flex-end', // Align the button to the bottom of the container
+    alignItems: 'center',
   },
-  headingStyle: {
-    fontSize: 30,
-    color: 'black',
-    textAlign: 'center',
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0,0,0,0.3)', // Adjust opacity as needed
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  personalizationButton: {
+    borderRadius: 25,
+    backgroundColor: '#6544EC',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
+  personalizationButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color:'white'
   },
 });
+
 export default SettingsScreen;

@@ -1,19 +1,31 @@
-//Login.js
-
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleLogin = () => {
-    if (email && password) {
-      navigation.navigate('Dashboard');
-    } else {
-      alert('Please enter email and password');
+    if (!email.trim() || !password.trim()) {
+      setErrorMessage('*Note: Please enter email and password');
+      return;
     }
+
+    if (!validateEmail(email)) {
+      setErrorMessage('*Note: Please enter a valid email address');
+      return;
+    }
+
+    // Clear error message
+    setErrorMessage('');
+
+    navigation.navigate('Dashboard');
+    setEmail('');
+    setPassword('');
   };
 
   const togglePasswordVisibility = () => {
@@ -21,73 +33,91 @@ const Login = ({ navigation }) => {
   };
 
   const handleSignup = () => {
-    navigation.navigate('Signup'); // Navigate to the Signup screen
+    navigation.navigate('Signup');
   };
 
   const handleForgotPassword = () => {
-    // Handle forgot password logic
-    navigation.navigate('ForgotPassword'); 
+    navigation.navigate('ForgotPassword');
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        autoCapitalize="none"
-      />
-      <View style={styles.passwordContainer}>
+    <ImageBackground 
+      source={require('../assets/images/login.jpg')}
+      style={styles.backgroundImage}
+      resizeMode="cover"
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Login</Text>
         <TextInput
-          style={styles.passwordInput}
-          placeholder="Password"
-          secureTextEntry={!showPassword}
-          value={password}
-          onChangeText={setPassword}
+          style={styles.emailinput}
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
           autoCapitalize="none"
         />
-        <TouchableOpacity onPress={togglePasswordVisibility}>
-          <Text style={styles.showHide}>{showPassword ? 'Hide' : 'Show'}</Text>
+        <View style={styles.passwordContainer}>
+          <TextInput
+            style={styles.passwordInput}
+            placeholder="Password"
+            secureTextEntry={!showPassword}
+            value={password}
+            onChangeText={setPassword}
+            autoCapitalize="none"
+          />
+          <TouchableOpacity onPress={togglePasswordVisibility}>
+            <Icon name={showPassword ? 'eye-off' : 'eye'} size={28} color="grey" />
+          </TouchableOpacity>
+        </View>
+        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
+        <View style={styles.linksContainer}>
+          <TouchableOpacity onPress={handleSignup}>
+            <Text style={styles.linkText}>Signup</Text>
+          </TouchableOpacity>
+          <Text style={styles.linkSeparator}>|</Text>
+          <TouchableOpacity onPress={handleForgotPassword}>
+            <Text style={styles.linkText}>Forgot Password</Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-      <View style={styles.linksContainer}>
-        <TouchableOpacity onPress={handleSignup}>
-          <Text style={styles.linkText}>Signup</Text>
-        </TouchableOpacity>
-        <Text style={styles.linkSeparator}>|</Text>
-        <TouchableOpacity onPress={handleForgotPassword}>
-          <Text style={styles.linkText}>Forgot Password</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
+    color: '#fff',
   },
-  input: {
+  emailinput: {
     width: '80%',
     height: 50,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 25,
     paddingHorizontal: 10,
     marginBottom: 20,
+    backgroundColor: '#fff',
+    color:'black',
   },
   passwordContainer: {
     width: '80%',
@@ -95,25 +125,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 5,
+    borderRadius: 25,
     marginBottom: 20,
     paddingHorizontal: 10,
+    backgroundColor: '#fff',
   },
   passwordInput: {
     flex: 1,
     height: 50,
-  },
-  showHide: {
-    fontSize: 16,
-    color: '#007bff',
+    color:'black',
   },
   button: {
-    width: '80%',
+    width: '40%',
     height: 50,
     backgroundColor: '#007bff',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 5,
+    borderRadius: 25,
     marginBottom: 20,
   },
   buttonText: {
@@ -126,15 +154,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   linkText: {
-    fontSize: 16,
-    color: '#007bff',
+    fontSize: 17,
+    color: 'white',
     textDecorationLine: 'underline',
     marginRight: 10,
   },
   linkSeparator: {
-    fontSize: 16,
-    color: '#777',
+    fontSize: 20,
+    color: 'white',
     marginRight: 10,
+  },
+  errorMessage: {
+    color: 'gold',
+    marginBottom: 10,
   },
 });
 
