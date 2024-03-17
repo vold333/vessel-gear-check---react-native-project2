@@ -77,28 +77,27 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- 
 
-- npm install @react-native-community/geolocation  -----> for weather api 
+
+************************************************************************************************************************
+
+**Packages used:**
+
+
+npm install react-native-vector-icons
+
+npm install react-native-linear-gradient
+
+**You might also need to link the package manually depending on your React Native version (auto-linking is supported from React Native 0.60 and above).
+react-navigation (for useNavigation, createDrawerNavigator, createStackNavigator):**
 
 npm install @react-navigation/native
 
-npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+npm install react-native-screens react-native-safe-area-context
 
-npm install @react-navigation/stack
+npm install @react-navigation/drawer @react-navigation/stack
 
-npm install @expo/vector-icons 
+npm install redux react-redux
 
-npm install expo-font 
-
-npm install --save react-native-vector-icons
-
-npm install react-native-elements -------> not used
-
-npm install @react-navigation/drawer
-
-npm i react-native-paper
-
-npm install @react-navigation/native-stack
-
-npm install react-native-datepicker  -------------> not used
-
+npm install @react-native-community/datetimepicker 

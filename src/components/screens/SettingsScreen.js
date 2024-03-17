@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   personalizationButton: {
     borderRadius: 25,
-    backgroundColor: '#6544EC',
+    backgroundColor: '#2B1EFC',
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 20,

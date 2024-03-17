@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     marginBottom: 20,
     backgroundColor: '#fff',
+    color:'black',
   },
   passwordContainer: {
     width: '80%',
@@ -131,6 +133,7 @@ const styles = StyleSheet.create({
   passwordInput: {
     flex: 1,
     height: 50,
+    color:'black',
   },
   button: {
     width: '40%',

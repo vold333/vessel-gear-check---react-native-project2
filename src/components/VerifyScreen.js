@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     color: '#007bff',
     textDecorationLine: 'underline',
     marginBottom: 23,
+    // eslint-disable-next-line no-dupe-keys
     color: '#fff',
     marginTop: 8, 
   },

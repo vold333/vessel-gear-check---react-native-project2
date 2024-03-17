@@ -1,5 +1,3 @@
-// DrawerContent.js
-
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
@@ -22,11 +20,13 @@ const DrawerLayout = ({ icon, label, navigateTo }) => {
 
   return (
     <DrawerItem
-      icon={({ color, size }) => <Icon name={icon} color={color} size={size} />}
+      icon={({ color, size }) => <Icon name={icon} color={'black'} size={30} />}
       label={label}
       onPress={() => {
         navigation.navigate(navigateTo);
       }}
+      style={styles.drawerItem}
+      labelStyle={styles.drawerLabel}
     />
   );
 };
@@ -46,7 +46,7 @@ const DrawerItems = () => {
 
 const DrawerContent = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <DrawerContentScrollView>
         <View style={styles.drawerContent}>
           <View style={styles.drawerSection}>
@@ -59,13 +59,26 @@ const DrawerContent = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#8C8CFF', // Background color for the entire drawer container
+  },
   drawerContent: {
     flex: 1,
   },
   drawerSection: {
     marginTop: 15,
   },
+  drawerItem: {
+    backgroundColor: '#FFFFFF', // Background color for each item
+    borderRadius: 25, // Border radius for each item
+    marginVertical: 5, // Add vertical margin between items
+  },
+  drawerLabel: {
+    color: 'black', // Text color for the items
+    fontWeight: 'bold', // Add font weight if desired
+    fontSize: 15
+  },
 });
 
 export default DrawerContent;
-
