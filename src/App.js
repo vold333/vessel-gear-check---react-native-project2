@@ -168,12 +168,12 @@ const App = () => {
         <Stack.Screen name="Hospitality" component={HospitalityComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
 
         <Stack.Screen name="Documentation" component={DocumentationComponent} options={{ headerShown: false }} />
-        <Stack.Screen name="External_hull_pre_boarding" component={External_hull_pre_boardingComponent} options={{ headerShown: false }} />
-        <Stack.Screen name="ISM_Code" component={ISM_CodeComponent} options={{ headerShown: false }} />
-        <Stack.Screen name="Wheel_house" component={Wheel_houseComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="ExternalHullPreBoarding" component={External_hull_pre_boardingComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="IsmCode" component={ISM_CodeComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="WheelHouse" component={Wheel_houseComponent} options={{ headerShown: false }} />
         <Stack.Screen name="Radio" component={RadioComponent} options={{ headerShown: false }} />
-        <Stack.Screen name="Common_check" component={Common_checkComponent} options={{ headerShown: false }} />
-        <Stack.Screen name="Deck_hours_of_rest_fatigue" component={Deck_hours_of_rest_fatigueComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="CommonCheck" component={Common_checkComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="DeckHoursRestFatigue" component={Deck_hours_of_rest_fatigueComponent} options={{ headerShown: false }} />
 
         <Stack.Screen name="EngineRoom" component={EngineRoom} options={{ headerShown: false }} />
         
