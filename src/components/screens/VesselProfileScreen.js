@@ -1,24 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, KeyboardType } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 
 const VesselProfileScreen = () => {
-  const [inputs, setInputs] = useState([
-    { label: 'Captain Name', value: '' },
-    { label: 'Name of the chief engineer', value: '' },
-    { label: 'Name of the chief mate', value: '' },
-    { label: 'Vessel ID', value: '' },
-    { label: 'Vessel Name', value: '' },
-    { label: 'Type and class', value: '' },
-    { label: 'Country', value: '' }, // Change label to 'Country' for the 7th input
-    { label: 'IMO Number', value: '' },
-    { label: 'IMO Type', value: '' },
-    { label: 'Registry Info', value: '' }, // Change labels for the 10th, 11th, and 12th inputs
-    { label: 'Maintanence Schedule', value: '' },
-    { label: 'Repair History', value: '' },
-  ]);
+  const initialInputs = [
+    { label: 'Captain Name', value: '', maxLength: 20 },
+    { label: 'Name of the chief engineer', value: '', maxLength: 20 },
+    { label: 'Name of the chief mate', value: '', maxLength: 20 },
+    { label: 'Vessel ID', value: '', maxLength: 20 },
+    { label: 'Vessel Name', value: '', maxLength: 20 },
+    { label: 'Type and Class', value: '', maxLength: 20 },
+    { label: 'Country', value: '', maxLength: 20 },
+    { label: 'IMO Number', value: '', maxLength: 7, keyboardType: 'numeric' }, // Enforce numeric keyboard for IMO Number
+    { label: 'IMO Type', value: '', maxLength: 20 },
+    { label: 'Registry Info', value: '', maxLength: 20 },
+    { label: 'Maintenance Schedule', value: '', maxLength: 20 },
+    { label: 'Repair History', value: '', maxLength: 20 },
+  ];
+
+  const [inputs, setInputs] = useState(initialInputs);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (text, index) => {
+    if (inputs[index].maxLength && text.length > inputs[index].maxLength) {
+      return; // Do not update the value if it exceeds max length
+    }
     const newInputs = [...inputs];
     newInputs[index].value = text;
     setInputs(newInputs);
@@ -29,11 +35,9 @@ const VesselProfileScreen = () => {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
       });
-      console.log("DocumentPicker response:", res); // Debugging: Log the response object
       const newInputs = [...inputs];
-      // Extract file name from URI if it exists
-      const fileName = res?.name ? res.name : ''; // Use name property of the response object
-      newInputs[index].value = fileName; // Store the file name in the input value
+      const fileName = res?.name ? res.name : '';
+      newInputs[index].value = fileName;
       setInputs(newInputs);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
@@ -43,16 +47,21 @@ const VesselProfileScreen = () => {
       }
     }
   };
-         
 
   const handleBack = () => {
-    // Handle back navigation
-    console.log('Back button clicked');
+    setInputs(initialInputs);
   };
 
   const handleSubmit = () => {
-    // Handle submission logic here
-    console.log('Submitted:', inputs);
+    const allFieldsFilled = inputs.every(input => input.value.trim() !== '');
+
+    if (allFieldsFilled) {
+      setErrorMessage('');
+      console.log('Submitted:', inputs);
+      setInputs(initialInputs);
+    } else {
+      setErrorMessage('*Please fill all required fields.');
+    }
   };
 
   return (
@@ -65,15 +74,18 @@ const VesselProfileScreen = () => {
               value={input.value}
               onChangeText={(text) => handleInputChange(text, index)}
               placeholder={input.label}
-              editable={index < 7} // Make only the first 7 inputs editable
+              maxLength={input.maxLength}
+              keyboardType={input.keyboardType || 'default'} // Default to 'default' if keyboardType is not provided
+              editable={index < 9}
             />
-            {(index >= 9 && index <= 11) && ( // Render file upload button for inputs 10 to 12
+            {(index >= 9 && index <= 11) && (
               <TouchableOpacity onPress={() => handleFilePick(index)} style={styles.filePicker}>
                 <Text style={styles.filePickerText}>Select PDF</Text>
               </TouchableOpacity>
             )}
           </View>
         ))}
+        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
         <View style={styles.buttonContainer}>
           <TouchableOpacity onPress={handleSubmit} style={styles.button}>
             <Text style={styles.buttonText}>Submit</Text>
@@ -82,6 +94,7 @@ const VesselProfileScreen = () => {
             <Text style={styles.buttonText}>Back</Text>
           </TouchableOpacity>
         </View>
+        
       </ScrollView>
     </View>
   );
@@ -132,10 +145,15 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 25,
+    marginBottom: 20
   },
   buttonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
+  },
+  errorMessage: {
+    color: 'red',
+    marginBottom: 10
   },
 });
 
