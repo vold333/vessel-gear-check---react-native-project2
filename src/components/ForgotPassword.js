@@ -38,6 +38,7 @@ const ForgotPassword = ({ navigation }) => {
         <TextInput
           style={styles.fpinput}
           placeholder="Enter your email"
+          placeholderTextColor="#777" // Add this line
           value={email}
           onChangeText={setEmail}
           autoCapitalize="none"

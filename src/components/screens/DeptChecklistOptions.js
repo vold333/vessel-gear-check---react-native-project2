@@ -557,7 +557,7 @@ const [submitted, setSubmitted] = useState(false); // Track if form has been sub
           <View style={styles2.radioButton}>
             {radioButton.selected && <View style={styles2.radioButtonInner} />}
           </View>
-          <Text>{radioButton.label}</Text>
+          <Text style={styles2.radiolabel}>{radioButton.label}</Text>
         </TouchableOpacity>
       ))}
        {question.radioError && submitted && <Text style={styles2.errorText}>Please select an option.</Text>}
@@ -584,6 +584,9 @@ const [submitted, setSubmitted] = useState(false); // Track if form has been sub
     
 
     const styles2 = StyleSheet.create({
+      radiolabel:{
+color:'black',
+      },
       errorInput: { borderColor: 'red' },
   errorText: { color: 'red' },
       headerContainer: {
@@ -672,12 +675,15 @@ radioButtonContainer : {
         borderWidth: 1,
         borderRadius: 5,
         marginRight: 10,
+        color:'black',
       },
       nonEditableInput: {
         borderWidth: 0,
+        color:'black',
       },
       editableInput: {
         borderColor: '#ddd',
+        color:'black',
       },
       iconButton: {
         padding: 10,
@@ -732,7 +738,7 @@ const Documentationquestions = [
     
   
     const handleSubmit = () => {
-      dispatch(setNextPath('External_hull_pre_boarding'));// Set the next path
+      dispatch(setNextPath('ExternalHullPreBoarding'));// Set the next path
     
       navigation.navigate('Submission');
     };
@@ -769,7 +775,7 @@ export const External_hull_pre_boardingComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(setNextPath('ISM_Code'));// Set the next path
+    dispatch(setNextPath('IsmCode'));// Set the next path
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
    
     navigation.navigate('Submission'); // Navigate to the submission component
@@ -809,14 +815,14 @@ export const ISM_CodeComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(setNextPath('Wheel_house'));// Set the next path
+    dispatch(setNextPath('WheelHouse'));// Set the next path
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
     navigation.navigate('Submission'); // Navigate to the submission component
     
   // Navigate to submission component as before
   };
   const handb=()=>{
-    navigation.navigate('External_hull_pre_boarding');
+    navigation.navigate('ExternalHullPreBoarding');
   }
 
   return (
@@ -855,7 +861,7 @@ export const Wheel_houseComponent = () => {
   // Navigate to submission component as before
   };
   const handb=()=>{
-    navigation.navigate('ISM_Code');
+    navigation.navigate('IsmCode');
   }
 
   return (
@@ -887,14 +893,14 @@ export const RadioComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(setNextPath('Common_check'));// Set the next path
+    dispatch(setNextPath('CommonCheck'));// Set the next path
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
     navigation.navigate('Submission'); // Navigate to the submission component
     
   // Navigate to submission component as before
   };
   const handb=()=>{
-    navigation.navigate('Wheel_house');
+    navigation.navigate('WheelHouse');
   }
 
   return (
@@ -926,7 +932,7 @@ export const Common_checkComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
-    dispatch(setNextPath('Deck_hours_of_rest_fatigue'));// Set the next path
+    dispatch(setNextPath('DeckHoursRestFatigue'));// Set the next path
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
     navigation.navigate('Submission'); // Navigate to the submission component
     

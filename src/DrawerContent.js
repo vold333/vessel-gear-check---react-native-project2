@@ -9,11 +9,13 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const DrawerList = [
   { icon: 'home-outline', label: 'Home', navigateTo: 'Home' },
   { icon: 'account-multiple', label: 'Roles', navigateTo: 'Roles' },
+  { icon: 'ship-wheel', label: 'Vessel Profile', navigateTo: 'Vessel Profile' }, // Add Vessel Profile here
   { icon: 'bookshelf', label: 'Checklist', navigateTo: 'Checklist' },
   { icon: 'chart-bar', label: 'Visualization', navigateTo: 'Visualization' },
   { icon: 'cog-outline', label: 'Settings', navigateTo: 'Settings' },
   { icon: 'logout', label: 'Sign out', navigateTo: 'Login' },
 ];
+
 
 const DrawerLayout = ({ icon, label, navigateTo }) => {
   const navigation = useNavigation();

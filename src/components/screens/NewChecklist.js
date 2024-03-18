@@ -1,4 +1,4 @@
-import {React,useState} from 'react';
+import {React,useState, useCallback } from 'react';
 import { View, Text, Image, StyleSheet, ScrollView ,TouchableOpacity, TextInput,SafeAreaView} from 'react-native';
 import { ChecklistMain } from './ChecklistScreen';
 import imageUrl from './i1.png'; // Make sure to import your image correctly for React Native
@@ -58,6 +58,7 @@ const addButton = [
                 onChangeText={setInputValue} // Update state with input text
                 onBlur={() => setInputTouched(true)} // Mark input as touched when it loses focus
                 placeholder={placeholderText}
+                placeholderTextColor="#777" // Add this line
                 style={styles.input}
             />
              {inputTouched && !inputValue.trim() && (
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd', // Adjust borderColor as needed
         padding: 10,
+        color:'black',
         borderRadius: 5, // Adjust borderRadius as needed
         fontSize: 16,
       },
@@ -143,20 +145,19 @@ const styles = StyleSheet.create({
 
 export default NewChecklist;
 
-
+let nextCardId = 2; // Initialize with 2 since the first card ID is 1 // Initialize outside of the component to ensure it doesn't reset
 export const AddNewItemScreen = ({ route }) => {
   const navigation = useNavigation();
     const { departmentInput, checklistInput } = route.params || {};
     const [cards, setCards] =  useState([{ id: 1, inputValue: '', selectedStatus: null, inputError: false, radioError: false }]);
-    let nextCardId = 2; // Initialize with 2 since the first card ID is 1
-  
-    const handleAddCard = () => {
-      setCards([...cards, { id: nextCardId++, inputValue: '', selectedStatus: null }]);
-    };
-    const handleDeleteCard = (id) => {
-      const newCards = cards.filter(card => card.id !== id);
-      setCards(newCards);
-    };
+   
+    const handleAddCard = useCallback(() => {
+      setCards(cards => [...cards, { id: nextCardId++, inputValue: '', selectedStatus: null }]);
+    }, []);
+
+    const handleDeleteCard = useCallback((idToDelete) => {
+      setCards(cards => cards.filter(card => card.id !== idToDelete));
+    }, []);
 
     const handleDone = () => {
       let isValid = true;
@@ -251,7 +252,7 @@ export const AddNewItemScreen = ({ route }) => {
       
       },
       text2:{
-       
+       color:'black',
         fontSize:16,
         textTransform:'capitalize'
       },
@@ -276,22 +277,38 @@ export const AddNewItemScreen = ({ route }) => {
     },
   });
 
+    
 
- export const CardItem = ({inputValue, onChangeInput, onAdd, onDelete, isEditingScreen = false, selectedStatus, onStatusChange = () => {},style,inputError,
+ export const CardItem = ({id,inputValue, onChangeInput, onAdd, onDelete, isEditingScreen = false, selectedStatus, onStatusChange = () => {},style,inputError,
  radioError  }) => {
    // const [selectedStatus, setSelectedStatus] = useState(null);
     const [isEditing, setIsEditing] = useState(!isEditingScreen); // Assume editing by default if not on editing screen
-  
+     // Add a state for input heights
+const [inputHeights, setInputHeights] = useState({});
+
+const handleContentSizeChange = (id, event) => {
+  if (event && event.nativeEvent && event.nativeEvent.contentSize) {
+    const { height } = event.nativeEvent.contentSize;
+    setInputHeights(prevHeights => ({
+      ...prevHeights,
+      [id]: height // Update the height for the specific question's input
+    }));
+  }
+};
     return (
       <View style={[styles2.card]}>
          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%' }}>
         <TextInput
-          style={[styles2.input, !isEditing && styles2.inputDisabled]}
+          style={[styles2.input, !isEditing && styles2.inputDisabled,{height: Math.max(35, inputHeights[id] || 35)}]}
           value={inputValue}
           onChangeText={onChangeInput}
           placeholder="Type here..."
+          placeholderTextColor="#777" // Add this line
           editable={isEditing}
+          multiline={true} // Enable multiline input
+          onContentSizeChange={(event) => handleContentSizeChange(id, event)} // Adjust height based on content
           onBlur={() => isEditingScreen && setIsEditing(false)} // Only revert to non-editable on editing screen
+          required 
         />
        
 
@@ -312,28 +329,37 @@ export const AddNewItemScreen = ({ route }) => {
         {["Done", "Not Done", "Not Applicable"].map((status) => (
           <TouchableOpacity
             key={status}
-            onPress={() => onStatusChange(status)}
+            onPress={() => onStatusChange(status, id)}
             style={styles2.radioButtonContainer}
           >
             <View style={[
               styles2.radioButton,
               selectedStatus === status && styles2.radioButtonSelected,
             ]} />
-            <Text>{status}</Text>
+            <Text style={styles2.radioLabel}>{status}</Text>
           </TouchableOpacity>
+          
         ))}
+          
       </View>
-     
-      <TouchableOpacity onPress={onDelete}>
+      <TouchableOpacity  style={styles2.deleteIconPosition} onPress={() => onDelete(id)}>
             <Icon name="delete" size={24} color="black" />
           </TouchableOpacity>
+    
           </View>
+         
           {radioError && <Text style={styles2.errorMessage}>Please select an option.</Text>}
-        
+          
       </View>
     );
   };
   const styles2 = StyleSheet.create({
+    deleteIconPosition: {
+      position: 'absolute',
+      right: -185,
+      bottom: 10, // Adjust as necessary to position below the edit icon
+    },
+   
     errorMessage: {
       color: 'red',
       fontSize: 14,
@@ -342,6 +368,7 @@ export const AddNewItemScreen = ({ route }) => {
     },
     inputDisabled: {
       borderWidth: 0,
+      color:'black',
     },
     card: {
       
@@ -356,17 +383,19 @@ export const AddNewItemScreen = ({ route }) => {
     input: {
       flex: 1, // Make input flexible to take up available space
       borderColor: '#ccc',
+      color:'black',
       borderWidth: 1,
       padding: 8,
       marginBottom: 15,
       borderRadius: 5, // Rounded corners for the input
     },
     radioContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: 'column',
+      //alignItems: 'center',
       marginBottom: 10, // Added margin-bottom for spacing
     },
     radioButtonContainer: {
+      color:'black',
       flexDirection: 'row',
       alignItems: 'center',
       marginRight: 15, // Increased spacing between radio buttons
@@ -385,7 +414,8 @@ export const AddNewItemScreen = ({ route }) => {
       backgroundColor: '#000', // Black dot for selected
     },
     radioLabel: {
-      fontSize: 16,
+      fontSize: 14,
+      color:'black',
     },
     
   });
@@ -568,7 +598,7 @@ radioButtonSelected: {
     backgroundColor: '#000', // Black dot for selected
 },
 radioLabel: {
-    fontSize: 16,
+    fontSize: 13,
 },
 });
 

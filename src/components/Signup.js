@@ -128,6 +128,7 @@ const Signup = ({ navigation }) => {
             <TextInput
               style={styles.suinput}
               placeholder="Unique ID"
+              placeholderTextColor="#777" // Add this line
               keyboardType="numeric"
               maxLength={6}
               value={uniqueId}
@@ -141,13 +142,14 @@ const Signup = ({ navigation }) => {
               style={styles.modalinput}
               onPress={() => setIsModalVisible(true)} // Open modal when clicked
             >
-              <Text style={[styles.modalOptionText, position === 'Other' && { color: 'black' }]}>
+              <Text style={[styles.modalOptionText, position === 'Other' && { color: 'grey' }]}>
                 {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
               </Text>
             </TouchableOpacity>
             <TextInput
               style={styles.suinput}
               placeholder="Password"
+              placeholderTextColor="#777" // Add this line
               value={password}
               onChangeText={(text) => {
                 setPassword(text);
@@ -161,6 +163,7 @@ const Signup = ({ navigation }) => {
             <TextInput
               style={styles.suinput}
               placeholder="Name"
+              placeholderTextColor="#777" // Add this line
               value={name}
               onChangeText={(text) => {
                 setName(text);
@@ -171,6 +174,7 @@ const Signup = ({ navigation }) => {
             <TextInput
               style={styles.suinput}
               placeholder="Email"
+              placeholderTextColor="#777" // Add this line
               value={email}
               onChangeText={(text) => {
                 setEmail(text);
@@ -182,6 +186,7 @@ const Signup = ({ navigation }) => {
             <TextInput
               style={styles.suinput}
               placeholder="Confirm Password"
+              placeholderTextColor="#777" // Add this line
               value={confirmPassword}
               onChangeText={(text) => {
                 setConfirmPassword(text);
@@ -257,6 +262,7 @@ const Signup = ({ navigation }) => {
                 <TextInput
                   style={styles.otherInput}
                   placeholder="Specify Position"
+                  placeholderTextColor="green" // Add this line
                   value={otherPosition}
                   onChangeText={text => setOtherPosition(text)}
                 />
@@ -277,6 +283,9 @@ const Signup = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  otherInput:{
+    color:'grey',
+  },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
@@ -310,6 +319,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 10,
     marginBottom: 10,
+    color:'grey',
     backgroundColor: '#fff',
   },
   button: {
@@ -363,7 +373,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   modalOptionText:{
-    color:'black'
+    color:'grey'
   },
   iconContainer: {
     padding: 10,

@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     marginRight: 10, // Take full width of the container
     borderRadius: 30,
     padding: 20,
-    marginBottom: 20,
+    marginTop: 15,
   },
   shadow: {
     shadowColor: 'grey',
