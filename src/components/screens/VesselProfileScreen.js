@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, KeyboardType } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, PermissionsAndroid } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
+import RNFS from 'react-native-fs';
 
 const VesselProfileScreen = () => {
-  const initialInputs = [
+  const [permissionGranted, setPermissionGranted] = useState(false);
+  const [inputs, setInputs] = useState([
     { label: 'Captain Name', value: '', maxLength: 20 },
     { label: 'Name of the chief engineer', value: '', maxLength: 20 },
     { label: 'Name of the chief mate', value: '', maxLength: 20 },
@@ -11,15 +13,40 @@ const VesselProfileScreen = () => {
     { label: 'Vessel Name', value: '', maxLength: 20 },
     { label: 'Type and Class', value: '', maxLength: 20 },
     { label: 'Country', value: '', maxLength: 20 },
-    { label: 'IMO Number', value: '', maxLength: 7, keyboardType: 'numeric' }, // Enforce numeric keyboard for IMO Number
+    { label: 'IMO Number', value: '', maxLength: 7, keyboardType: 'numeric' },
     { label: 'IMO Type', value: '', maxLength: 20 },
     { label: 'Registry Info', value: '', maxLength: 20 },
     { label: 'Maintenance Schedule', value: '', maxLength: 20 },
     { label: 'Repair History', value: '', maxLength: 20 },
-  ];
-
-  const [inputs, setInputs] = useState(initialInputs);
+  ]);
+  const [selectedFile, setSelectedFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    requestExternalStoragePermission();
+  }, []);
+
+  const requestExternalStoragePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+        {
+          title: 'Storage Permission',
+          message: 'App needs access to your storage to upload files.',
+          buttonPositive: 'OK',
+        }
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        console.log('External storage permission granted');
+        setPermissionGranted(true);
+      } else {
+        console.log('External storage permission denied');
+        setPermissionGranted(false);
+      }
+    } catch (error) {
+      console.error('Error requesting external storage permission:', error);
+    }
+  };
 
   const handleInputChange = (text, index) => {
     if (inputs[index].maxLength && text.length > inputs[index].maxLength) {
@@ -35,76 +62,104 @@ const VesselProfileScreen = () => {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
       });
+      setSelectedFile(res);
+      // Update the input field with the selected file name
       const newInputs = [...inputs];
-      const fileName = res?.name ? res.name : '';
-      newInputs[index].value = fileName;
+      newInputs[index].value = res.name;
       setInputs(newInputs);
     } catch (err) {
       if (DocumentPicker.isCancel(err)) {
         // User cancelled the picker
+        console.log('File selection cancelled');
       } else {
-        console.log('Error while picking the file:', err);
+        console.error('Error while picking the file:', err);
       }
     }
-  };
+  };    
 
   const handleBack = () => {
-    setInputs(initialInputs);
+    setInputs(inputs.map(input => ({ ...input, value: '' })));
+    setSelectedFile(null);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const allFieldsFilled = inputs.every(input => input.value.trim() !== '');
 
     if (allFieldsFilled) {
       setErrorMessage('');
+
+      if (selectedFile) {
+        console.log('Selected File:', selectedFile);
+
+        try {
+          const dirPath = RNFS.DocumentDirectoryPath;
+          const folderName = 'uploads';
+          const filePath = `${dirPath}/${folderName}/${selectedFile.name}`;
+
+          await RNFS.mkdir(`${dirPath}/${folderName}`);
+          await RNFS.copyFile(selectedFile.uri, filePath);
+
+          console.log('File copied to destination folder:', filePath);
+        } catch (error) {
+          console.error('Error copying file to destination folder:', error);
+        }
+
+        setSelectedFile(null);
+      }
+
       console.log('Submitted:', inputs);
-      setInputs(initialInputs);
+      setInputs(inputs.map(input => ({ ...input, value: '' })));
     } else {
       setErrorMessage('*Please fill all required fields.');
     }
   };
 
   return (
-    <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        {inputs.map((input, index) => (
-          <View key={index} style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              value={input.value}
-              onChangeText={(text) => handleInputChange(text, index)}
-              placeholder={input.label}
-              maxLength={input.maxLength}
-              keyboardType={input.keyboardType || 'default'} // Default to 'default' if keyboardType is not provided
-              editable={index < 9}
-            />
-            {(index >= 9 && index <= 11) && (
-              <TouchableOpacity onPress={() => handleFilePick(index)} style={styles.filePicker}>
-                <Text style={styles.filePickerText}>Select PDF</Text>
-              </TouchableOpacity>
-            )}
+    <ImageBackground source={require('../../assets/images/vessel.jpg')} style={styles.backgroundImage}>
+      <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          {inputs.map((input, index) => (
+            <View key={index} style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                value={input.value}
+                onChangeText={(text) => handleInputChange(text, index)}
+                placeholder={input.label}
+                maxLength={input.maxLength}
+                keyboardType={input.keyboardType || 'default'}
+                editable={index < 9}
+              />
+              {(index >= 9 && index <= 11) && permissionGranted && (
+                <TouchableOpacity onPress={() => handleFilePick(index)} style={styles.filePicker}>
+                  <Text style={styles.filePickerText}>Select PDF</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          ))}
+          {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity onPress={handleSubmit} style={styles.button}>
+              <Text style={styles.buttonText}>Submit</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleBack} style={styles.button}>
+              <Text style={styles.buttonText}>Back</Text>
+            </TouchableOpacity>
           </View>
-        ))}
-        {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity onPress={handleSubmit} style={styles.button}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleBack} style={styles.button}>
-            <Text style={styles.buttonText}>Back</Text>
-          </TouchableOpacity>
-        </View>
-        
-      </ScrollView>
-    </View>
+        </ScrollView>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
-    marginTop: 20,
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    paddingTop: 5,
   },
   scrollView: {
     flexGrow: 1,
@@ -127,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   filePicker: {
-    backgroundColor: '#DDDDDD',
+    backgroundColor: 'lightblue',
     padding: 10,
     borderRadius: 25,
     alignItems: 'center',
@@ -158,3 +213,4 @@ const styles = StyleSheet.create({
 });
 
 export default VesselProfileScreen;
+
