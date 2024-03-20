@@ -126,12 +126,14 @@ const styles = StyleSheet.create({
   backButtonContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingTop: 5,
   },
   backButton: {
     fontSize: 18,
     color: '#007bff',
     color: '#fff',
     marginLeft: 5,
+    
   },
   errorMessage: {
     fontSize: 14,

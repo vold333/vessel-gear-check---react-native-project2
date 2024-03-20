@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, PermissionsAndroid } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
-import RNFS from 'react-native-fs';
+import RNFetchBlob from 'rn-fetch-blob';
 
 const VesselProfileScreen = () => {
-  const [permissionGranted, setPermissionGranted] = useState(false);
   const [inputs, setInputs] = useState([
     { label: 'Captain Name', value: '', maxLength: 20 },
     { label: 'Name of the chief engineer', value: '', maxLength: 20 },
@@ -19,100 +18,110 @@ const VesselProfileScreen = () => {
     { label: 'Maintenance Schedule', value: '', maxLength: 20 },
     { label: 'Repair History', value: '', maxLength: 20 },
   ]);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
-  useEffect(() => {
-    requestExternalStoragePermission();
-  }, []);
-
-  const requestExternalStoragePermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-        {
-          title: 'Storage Permission',
-          message: 'App needs access to your storage to upload files.',
-          buttonPositive: 'OK',
-        }
-      );
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('External storage permission granted');
-        setPermissionGranted(true);
-      } else {
-        console.log('External storage permission denied');
-        setPermissionGranted(false);
-      }
-    } catch (error) {
-      console.error('Error requesting external storage permission:', error);
-    }
-  };
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleInputChange = (text, index) => {
-    if (inputs[index].maxLength && text.length > inputs[index].maxLength) {
-      return; // Do not update the value if it exceeds max length
-    }
     const newInputs = [...inputs];
     newInputs[index].value = text;
     setInputs(newInputs);
   };
 
-  const handleFilePick = async (index) => {
+  const selectPdf = async (index) => {
     try {
       const res = await DocumentPicker.pick({
         type: [DocumentPicker.types.pdf],
       });
-      setSelectedFile(res);
+      const firstFile = Array.isArray(res) ? res[0] : res;
+
+      if (Platform.OS === 'android') {
+        await copyFileToExternalStorage(firstFile.uri, firstFile.name);
+      } else {
+        console.log('Non-Android OS detected');
+      }
+
       // Update the input field with the selected file name
       const newInputs = [...inputs];
-      newInputs[index].value = res.name;
+      newInputs[index].value = firstFile.name;
       setInputs(newInputs);
+      setFileName(firstFile.name);
     } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-        // User cancelled the picker
-        console.log('File selection cancelled');
-      } else {
-        console.error('Error while picking the file:', err);
+      if (!DocumentPicker.isCancel(err)) {
+        console.error(err);
       }
     }
-  };    
+  };
+
+  const requestExternalStoragePermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+        {
+          title: "External Storage Permission",
+          message: "App needs access to your external storage to download PDFs",
+        },
+      );
+      return granted === PermissionsAndroid.RESULTS.GRANTED;
+    } catch (err) {
+      console.warn(err);
+      return false;
+    }
+  };
+
+  const copyFileToExternalStorage = async (uri, name) => {
+    if (!(await requestExternalStoragePermission())) {
+      console.error("External storage permission denied");
+      return;
+    }
+  
+    const dirs = RNFetchBlob.fs.dirs;
+    const folderPath = `${dirs.DownloadDir}/ShipUploadedPDFs`;
+    const filePath = `${folderPath}/${name}`;
+  
+    try {
+      const isDir = await RNFetchBlob.fs.isDir(folderPath);
+      if (!isDir) {
+        await RNFetchBlob.fs.mkdir(folderPath);
+      }
+      await RNFetchBlob.fs.cp(uri, filePath);
+      console.log(`File copied to: ${filePath}`);
+    } catch (error) {
+      console.error('Error copying file:', error);
+    }
+  };
 
   const handleBack = () => {
     setInputs(inputs.map(input => ({ ...input, value: '' })));
-    setSelectedFile(null);
+    setFileName('');
   };
 
-  const handleSubmit = async () => {
-    const allFieldsFilled = inputs.every(input => input.value.trim() !== '');
+  // Inside your component function
+useEffect(() => {
+  let timer;
+  if (successMessage) {
+    timer = setTimeout(() => {
+      setSuccessMessage('');
+    }, 10000); // 10 seconds
+  }
 
-    if (allFieldsFilled) {
-      setErrorMessage('');
+  return () => clearTimeout(timer);
+}, [successMessage]); // Run this effect whenever successMessage changes
 
-      if (selectedFile) {
-        console.log('Selected File:', selectedFile);
+// Inside your handleSubmit function
+const handleSubmit = async () => {
+  // Check if all fields are filled
+  const allFieldsFilled = inputs.every(input => input.value.trim() !== '');
 
-        try {
-          const dirPath = RNFS.DocumentDirectoryPath;
-          const folderName = 'uploads';
-          const filePath = `${dirPath}/${folderName}/${selectedFile.name}`;
-
-          await RNFS.mkdir(`${dirPath}/${folderName}`);
-          await RNFS.copyFile(selectedFile.uri, filePath);
-
-          console.log('File copied to destination folder:', filePath);
-        } catch (error) {
-          console.error('Error copying file to destination folder:', error);
-        }
-
-        setSelectedFile(null);
-      }
-
-      console.log('Submitted:', inputs);
-      setInputs(inputs.map(input => ({ ...input, value: '' })));
-    } else {
-      setErrorMessage('*Please fill all required fields.');
-    }
-  };
+  if (allFieldsFilled) {
+    setSuccessMessage('Submitted successfully!!!'); // Update errorMessage state with success message
+    console.log('Submitted:', inputs); // Log the submitted data
+    setInputs(inputs.map(input => ({ ...input, value: '' }))); // Clear input values
+    setFileName(''); // Clear file name
+  } else {
+    setErrorMessage('*Please fill all the required fields.'); // Display error message
+  }
+};  
 
   return (
     <ImageBackground source={require('../../assets/images/vessel.jpg')} style={styles.backgroundImage}>
@@ -121,22 +130,23 @@ const VesselProfileScreen = () => {
           {inputs.map((input, index) => (
             <View key={index} style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={[styles.input, index >= 9 && index <= 11 ? styles.inputWithFile : null]}
                 value={input.value}
                 onChangeText={(text) => handleInputChange(text, index)}
                 placeholder={input.label}
-                maxLength={input.maxLength}
+                maxLength={index >= 9 && index <= 11 ? undefined : input.maxLength}
                 keyboardType={input.keyboardType || 'default'}
                 editable={index < 9}
               />
-              {(index >= 9 && index <= 11) && permissionGranted && (
-                <TouchableOpacity onPress={() => handleFilePick(index)} style={styles.filePicker}>
+              {(index >= 9 && index <= 11) && (
+                <TouchableOpacity onPress={() => selectPdf(index)} style={styles.filePicker}>
                   <Text style={styles.filePickerText}>Select PDF</Text>
                 </TouchableOpacity>
               )}
             </View>
           ))}
           {errorMessage ? <Text style={styles.errorMessage}>{errorMessage}</Text> : null}
+          {fileName ? <Text style={styles.uploadText}>Uploaded: <Text style={styles.uploadText}>{fileName}</Text></Text> : null}
           <View style={styles.buttonContainer}>
             <TouchableOpacity onPress={handleSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
@@ -145,6 +155,7 @@ const VesselProfileScreen = () => {
               <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
           </View>
+          {successMessage ? <Text style={styles.successMessage}>{successMessage}</Text> : null}
         </ScrollView>
       </View>
     </ImageBackground>
@@ -181,36 +192,55 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     backgroundColor: '#FFFFFF',
   },
+  inputWithFile: {
+    width: '80%', // Adjust the width for
+    color: 'black', // Set text color to black
+  },
   filePicker: {
-    backgroundColor: 'lightblue',
-    padding: 10,
-    borderRadius: 25,
-    alignItems: 'center',
+  backgroundColor: 'lightblue',
+  padding: 10,
+  borderRadius: 25,
+  alignItems: 'center',
   },
   filePickerText: {
-    fontWeight: 'bold',
+  fontWeight: 'bold',
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
+  flexDirection: 'row',
+  justifyContent: 'space-between',
+  width: '90%',
   },
   button: {
-    backgroundColor: '#007AFF',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    marginBottom: 20
+  backgroundColor: '#007AFF',
+  paddingVertical: 10,
+  paddingHorizontal: 20,
+  borderRadius: 25,
+  marginBottom: 10
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontWeight: 'bold',
+  color: '#FFFFFF',
+  fontWeight: 'bold',
   },
   errorMessage: {
-    color: 'red',
-    marginBottom: 10
+  color: 'red',
+  marginBottom: 10
   },
-});
+  successMessage:{
+  color: '#F5F12C',
+  marginBottom: 15,
+  fontWeight:'bold',
+  fontSize: 18
+  },
+  uploadText:{
+  marginBottom: 10,
+  color: 'blue',
+  textShadowRadius: 5,
+  },
+  fileNameText: {
+  color: 'black',
+  },
 
+});
+  
 export default VesselProfileScreen;
 

@@ -1,10 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const VerifyScreen = ({ navigation }) => {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '']);
+  const [isAllInputsFilled, setIsAllInputsFilled] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+  useEffect(() => {
+    // Check if all inputs are filled
+    const allInputsFilled = verificationCode.every(code => code.trim() !== '');
+    setIsAllInputsFilled(allInputsFilled);
+  }, [verificationCode]);
 
   const handleChangeText = (index, value) => {
     const newVerificationCode = [...verificationCode];
@@ -66,7 +73,11 @@ const VerifyScreen = ({ navigation }) => {
         <TouchableOpacity onPress={handleResendCode}>
           <Text style={styles.resendText}>If you didn't receive code? Resend</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+        <TouchableOpacity 
+          style={[styles.button, !isAllInputsFilled && styles.disabledButton]} 
+          onPress={handleSubmit} 
+          disabled={!isAllInputsFilled}
+        >
           <Text style={styles.buttonText}>Verify</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleBack}>
@@ -119,7 +130,6 @@ const styles = StyleSheet.create({
     color: '#007bff',
     textDecorationLine: 'underline',
     marginBottom: 23,
-    // eslint-disable-next-line no-dupe-keys
     color: '#fff',
     marginTop: 8, 
   },
@@ -146,6 +156,9 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: 'white',
     marginLeft: 5,
+  },
+  disabledButton: {
+    opacity: 0.5,
   },
 });
 

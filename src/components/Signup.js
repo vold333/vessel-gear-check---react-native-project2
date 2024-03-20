@@ -142,10 +142,11 @@ const Signup = ({ navigation }) => {
               style={styles.modalinput}
               onPress={() => setIsModalVisible(true)} // Open modal when clicked
             >
-              <Text style={[styles.modalOptionText, position === 'Other' && { color: 'grey' }]}>
+              <Text style={[styles.modalOptionText, !position && { color: 'grey' }]}>
                 {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
               </Text>
             </TouchableOpacity>
+
             <TextInput
               style={styles.suinput}
               placeholder="Password"
@@ -261,10 +262,11 @@ const Signup = ({ navigation }) => {
               <View style={styles.otherInputContainer}>
                 <TextInput
                   style={styles.otherInput}
-                  placeholder="Specify Position"
-                  placeholderTextColor="green" // Add this line
+                  placeholder="*Specify Position"
+                  placeholderTextColor="#2C43F5" // Add this line
                   value={otherPosition}
                   onChangeText={text => setOtherPosition(text)}
+                  color="black"
                 />
                 <TouchableOpacity
                   style={styles.iconContainer}
@@ -373,7 +375,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   modalOptionText:{
-    color:'grey'
+    color:'black'
   },
   iconContainer: {
     padding: 10,
