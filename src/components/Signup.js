@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto'; // Import the icon library
 
@@ -115,6 +115,17 @@ const Signup = ({ navigation }) => {
     navigation.navigate('Login');
   };
 
+  useEffect(() => {
+    let timer;
+    if (successMessage) {
+      timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 10000); // 10 seconds
+    }
+
+    return () => clearTimeout(timer);
+  }, [successMessage]);
+
   return (
     <ImageBackground 
       source={require('../assets/images/signup.jpg')}
@@ -136,6 +147,7 @@ const Signup = ({ navigation }) => {
                 setUniqueId(text);
                 validateUniqueId(text);
               }}
+              color="black"
               onBlur={() => validateUniqueId(uniqueId)}
             />
             <TouchableOpacity
@@ -156,6 +168,7 @@ const Signup = ({ navigation }) => {
                 setPassword(text);
                 validatePassword(text);
               }}
+              color="black"
               autoCapitalize="none"
               onBlur={() => validatePassword(password)}
             />
@@ -170,6 +183,7 @@ const Signup = ({ navigation }) => {
                 setName(text);
                 validateName(text);
               }}
+              color="black"
               onBlur={() => validateName(name)}
             />
             <TextInput
@@ -181,6 +195,7 @@ const Signup = ({ navigation }) => {
                 setEmail(text);
                 validateEmail(text);
               }}
+              color="black"
               autoCapitalize="none"
               onBlur={() => validateEmail(email)}
             />
@@ -193,6 +208,7 @@ const Signup = ({ navigation }) => {
                 setConfirmPassword(text);
                 validateConfirmPassword(text);
               }}
+              color="black"
               secureTextEntry={true}
               autoCapitalize="none"
               onBlur={() => validateConfirmPassword(confirmPassword)}
