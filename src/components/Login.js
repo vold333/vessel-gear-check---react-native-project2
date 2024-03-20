@@ -9,6 +9,10 @@ const Login = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Admin credentials for demonstration purposes
+  const ADMIN_EMAIL = 'admin@example.com';
+  const ADMIN_PASSWORD = 'admin123';
+
   const handleLogin = () => {
     if (!email.trim() || !password.trim()) {
       setErrorMessage('*Note: Please enter email and password');
@@ -23,7 +27,14 @@ const Login = ({ navigation }) => {
     // Clear error message
     setErrorMessage('');
 
-    navigation.navigate('Dashboard');
+    // Check if the user is the admin
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      navigation.navigate('Dashboard');
+    } else {
+      navigation.navigate('UserDashboard');
+    }
+    
+     // Reset fields
     setEmail('');
     setPassword('');
   };
