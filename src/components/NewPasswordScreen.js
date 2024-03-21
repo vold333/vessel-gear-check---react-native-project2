@@ -11,7 +11,7 @@ const NewPasswordScreen = ({ navigation }) => {
   const handleSubmit = () => {
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
     if (!passwordRegex.test(newPassword)) {
-      setErrorMessage('*Note: The Password must be in the length range of 8 to 16. \n The Password must contain at least one capital letter,\n small letter, numeric and a special character.');
+      setErrorMessage('*Note: The Password must be in the length range of 8 to 16. The Password must contain at least one capital letter,\n small letter, numeric and a special character.');
       return;
     }
 

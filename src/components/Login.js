@@ -9,6 +9,10 @@ const Login = ({ navigation }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
+  // Admin credentials for demonstration purposes
+  const ADMIN_EMAIL = 'captain@gmail.com';
+  const ADMIN_PASSWORD = 'captain';
+
   const handleLogin = () => {
     if (!email.trim() || !password.trim()) {
       setErrorMessage('*Note: Please enter email and password');
@@ -23,7 +27,14 @@ const Login = ({ navigation }) => {
     // Clear error message
     setErrorMessage('');
 
-    navigation.navigate('Dashboard');
+    // Check if the user is the admin
+    if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+      navigation.navigate('Dashboard');
+    } else {
+      navigation.navigate('UserDashboard');
+    }
+    
+     // Reset fields
     setEmail('');
     setPassword('');
   };
@@ -116,7 +127,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 25,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     marginBottom: 20,
     backgroundColor: '#fff',
     color:'black',
@@ -129,7 +140,7 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 25,
     marginBottom: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 15,
     backgroundColor: '#fff',
   },
   passwordInput: {

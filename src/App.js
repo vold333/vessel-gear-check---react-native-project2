@@ -14,6 +14,7 @@ import ForgotPassword from './components/ForgotPassword';
 import VerifyScreen from './components/VerifyScreen';
 import NewPasswordScreen from './components/NewPasswordScreen';
 import Dashboard from './components/screens/Dashboard';
+import UserDashboard from './components/screens/UserDashboard.js';
 import RolesScreen from './components/screens/RolesScreen';
 import VesselProfileScreen from './components/screens/VesselProfileScreen.js';
 
@@ -21,6 +22,7 @@ import ChecklistScreen from './components/screens/ChecklistScreen';
 import VisualizationScreen from './components/screens/VisualizationScreen';
 import SettingsScreen from './components/screens/SettingsScreen';
 import DrawerContent from './DrawerContent'; // Import DrawerContent
+import UserDrawerContent from './components/screens/UserDrawerContent.js';
 import PersonalizationScreen from './components/screens/PersonalizationScreen';
 
 
@@ -158,6 +160,34 @@ const DashboardDrawer = () => (
   </Drawer.Navigator>
 );
 
+// UserDashboard drawer navigator
+const UserDashboardDrawer = () => (
+  <Drawer.Navigator initialRouteName="Home" drawerContent={UserDrawerContent} >
+     <Drawer.Screen
+      name="Home"
+      component={UserDashboard}
+      options={{
+        headerStyle: {backgroundColor: '#084A98'},
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold'}
+      }}
+    />
+    <Drawer.Screen
+      name="Checklist"
+      component={ChecklistScreen}
+      options={{
+        headerStyle: {backgroundColor: '#084A98'},
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold'}
+      }}
+    />
+    <Drawer.Screen
+      name="Settings"
+      component={SettingsScreen}
+      options={{ headerStyle: {backgroundColor: '#084A98'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}}} />
+  </Drawer.Navigator>
+);
+
 const App = () => {
   return (<Provider store={store}>
     <NavigationContainer>
@@ -165,6 +195,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Auth" component={AuthStack} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={DashboardDrawer} options={{ headerShown: false }} />
+        <Stack.Screen name="UserDashboard" component={UserDashboardDrawer} options={{ headerShown: false }} />
         <Stack.Screen name="Personalization" component={PersonalizationScreen} options={{ headerTransparent: true, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'} }} />
        
         <Stack.Screen name="CreateChecklist" component={CreateChecklistPage} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerShown: true }} />
