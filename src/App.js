@@ -24,7 +24,7 @@ import SettingsScreen from './components/screens/SettingsScreen';
 import DrawerContent from './DrawerContent'; // Import DrawerContent
 import UserDrawerContent from './components/screens/UserDrawerContent.js';
 import PersonalizationScreen from './components/screens/PersonalizationScreen';
-
+import Notification from './components/screens/Notifications.js';
 
 import CreateChecklistPage from './components/screens/CreateChecklistPage';
 import ModifyDefaultChecklist from './components/screens/ModifyDefaultChecklist';
@@ -114,7 +114,8 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
+        headerTitleStyle: { fontWeight: 'bold'},
+        headerRight: () => <Notification />,
       }}
     />
     <Drawer.Screen
@@ -123,7 +124,8 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
+        headerTitleStyle: { fontWeight: 'bold'},
+        headerRight: () => <Notification />,
       }}
     />
     <Drawer.Screen
@@ -132,7 +134,8 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
+        headerTitleStyle: { fontWeight: 'bold'},
+        headerRight: () => <Notification />,
       }}
     />
     <Drawer.Screen
@@ -141,7 +144,8 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
+        headerTitleStyle: { fontWeight: 'bold'},
+        headerRight: () => <Notification />,
       }}
     />
     <Drawer.Screen
@@ -150,13 +154,14 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
+        headerTitleStyle: { fontWeight: 'bold'},
+        headerRight: () => <Notification />,
       }}
     />
     <Drawer.Screen
       name="Settings"
       component={SettingsScreen}
-      options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}}} />
+      options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}, headerRight: () => <Notification />,}} />
   </Drawer.Navigator>
 );
 
@@ -177,7 +182,6 @@ const UserDashboardDrawer = () => (
       component={ChecklistScreen}
       options={{
         headerStyle: {backgroundColor: '#084A98'},
-        headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold'}
       }}
@@ -186,7 +190,7 @@ const UserDashboardDrawer = () => (
       name="Settings"
       component={SettingsScreen}
       options={{ headerStyle: {backgroundColor: '#084A98'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}}} />
-    </Drawer.Navigator>
+  </Drawer.Navigator>
 );
 
 const App = () => {
