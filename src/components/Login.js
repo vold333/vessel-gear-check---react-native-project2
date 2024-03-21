@@ -10,6 +10,7 @@ const Login = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState('');
 
   // Admin credentials for demonstration purposes
+
   const ADMIN_EMAIL = 'captain@gmail.com';
   const ADMIN_PASSWORD = 'captain';
 

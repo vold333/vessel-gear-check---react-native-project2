@@ -177,6 +177,7 @@ const UserDashboardDrawer = () => (
       component={ChecklistScreen}
       options={{
         headerStyle: {backgroundColor: '#084A98'},
+        headerStyle: {backgroundColor: '#4539FF'},
         headerTintColor: '#fff',
         headerTitleStyle: { fontWeight: 'bold'}
       }}
@@ -185,7 +186,7 @@ const UserDashboardDrawer = () => (
       name="Settings"
       component={SettingsScreen}
       options={{ headerStyle: {backgroundColor: '#084A98'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}}} />
-  </Drawer.Navigator>
+    </Drawer.Navigator>
 );
 
 const App = () => {
