@@ -81,8 +81,6 @@ const VesselProfileScreen = () => {
       setErrorMessage('Error generating PDF. Please try again.'); // Set error message if PDF generation fails
     }
   };
-  
-  
 
   const generateHTMLReport = () => {
     // Define the HTML with style for the table and other elements
@@ -132,6 +130,7 @@ const VesselProfileScreen = () => {
   
     return html;
   }; 
+
 
   const requestExternalStoragePermission = async () => {
     try {
