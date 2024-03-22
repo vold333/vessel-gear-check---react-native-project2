@@ -1,16 +1,7 @@
-<<<<<<< HEAD
-=======
-/* eslint-disable prettier/prettier */
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
-<<<<<<< HEAD
-=======
-import RNHTMLtoPDF from 'react-native-html-to-pdf'; // Import react-native-html-to-pdf
-
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
 
 const VesselProfileScreen = () => {
   const [inputs, setInputs] = useState([
@@ -62,76 +53,6 @@ const VesselProfileScreen = () => {
     }
   };
 
-<<<<<<< HEAD
-=======
-  const handleReport = async () => {
-    try {
-      const options = {
-        html: generateHTMLReport(), // Generate HTML for the report
-        fileName: 'Vessel_Report', // Set the file name
-        directory: 'Documents', // Save in Documents directory (or use other directories as per requirement)
-      };
-
-      const pdf = await RNHTMLtoPDF.convert(options); // Convert HTML to PDF
-
-      console.log('PDF generated:', pdf);
-    } catch (error) {
-      console.error('Error generating PDF:', error);
-    }
-  };
-
-  const generateHTMLReport = () => {
-    // Define the HTML with style for the table and other elements
-    let html = `
-      <html>
-      <head>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 24px; }
-          h1 { color: navy; text-align: center; }
-          .report-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-          .report-table th, .report-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-          .report-table th { background-color: #8C8CFF; color: white; }
-          .container { padding: 20px; }
-        </style>
-      </head>
-      <body>
-        <div class="container">
-          <h1>Vessel Report</h1>
-          <table class="report-table">
-            <thead>
-              <tr>
-                <th>Label</th>
-                <th>Value</th>
-              </tr>
-            </thead>
-            <tbody>
-    `;
-  
-    // Iterate over each input field and add rows to the table
-    inputs.forEach(input => {
-      html += `
-              <tr>
-                <td>${input.label}</td>
-                <td>${input.value}</td>
-              </tr>
-      `;
-    });
-  
-    // Close the table, container div, and body/html tags
-    html += `
-            </tbody>
-          </table>
-        </div>
-      </body>
-      </html>
-    `;
-  
-    return html;
-  };
-  
-  
-
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
   const requestExternalStoragePermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -156,12 +77,7 @@ const VesselProfileScreen = () => {
   
     const dirs = RNFetchBlob.fs.dirs;
     const folderPath = `${dirs.DownloadDir}/ShipUploadedPDFs`;
-<<<<<<< HEAD
     const filePath = `${folderPath}/${name}`;
-=======
-const filePath = `${folderPath}/${name}`;
-
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
   
     try {
       const isDir = await RNFetchBlob.fs.isDir(folderPath);
@@ -170,10 +86,6 @@ const filePath = `${folderPath}/${name}`;
       }
       await RNFetchBlob.fs.cp(uri, filePath);
       console.log(`File copied to: ${filePath}`);
-<<<<<<< HEAD
-=======
-
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
     } catch (error) {
       console.error('Error copying file:', error);
     }
@@ -239,12 +151,6 @@ const handleSubmit = async () => {
             <TouchableOpacity onPress={handleSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
-<<<<<<< HEAD
-=======
-            <TouchableOpacity onPress={handleReport} style={styles.reportButton}>
-          <Text style={styles.reportButtonText}>Report</Text>
-        </TouchableOpacity>
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
             <TouchableOpacity onPress={handleBack} style={styles.button}>
               <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
@@ -333,29 +239,8 @@ const styles = StyleSheet.create({
   fileNameText: {
   color: 'black',
   },
-<<<<<<< HEAD
 
 });
   
 export default VesselProfileScreen;
 
-=======
-  reportButton: {
-    position: 'absolute',
-    top: 10, // Adjust as needed to position the button
-    left:120,
-    marginBottom:20,// Adjust as needed to position the button
-    backgroundColor: '#FF0000', // Red color
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-  },
-  reportButtonText: {
-    color: '#FFFFFF', // White color for text
-    fontWeight: 'bold',
-  },
-
-});
-
-export default VesselProfileScreen;
->>>>>>> fb41cf1969418b30346ab4c4aa8d05e2f2a90aad
