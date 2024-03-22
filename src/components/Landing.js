@@ -103,6 +103,7 @@ const Landing = ({ navigation }) => {
         {loading ? (
           <Text style={styles.loadingText}>Loading...</Text>
         ) : (
+<<<<<<< HEAD
           <View style={styles.weatherContainer}>
             <Image source={require('../assets/images/cloud.png')} style={styles.weatherIcon} />
             <Text style={styles.temperature}>{temperature}</Text>
@@ -133,6 +134,40 @@ const Landing = ({ navigation }) => {
             Get Started
           </Text>
         </TouchableOpacity>
+=======
+          <>
+            <View style={styles.weatherContainer}>
+              <Image source={require('../assets/images/cloud.png')} style={styles.weatherIcon} />
+              <Text style={styles.temperature}>{temperature}</Text>
+              <Text style={styles.location}>📍{location}, {country}</Text>
+              <Text style={styles.dateInfo}>{dateInfo}</Text>
+              <View style={styles.dataContainer}>
+                <View style={styles.element}>
+                  <Image source={require('../assets/images/humidity.png')} style={styles.icon} />
+                  <View style={styles.data}>
+                    <Text style={styles.text}>{humidity}</Text>
+                    <Text style={styles.text}>Humidity</Text>
+                  </View>
+                </View>
+                <View style={styles.element}>
+                  <Image source={require('../assets/images/wind.png')} style={styles.icon} />
+                  <View style={styles.data}>
+                    <Text style={styles.text}>{windSpeed}</Text>
+                    <Text style={styles.text}>Wind Speed</Text>
+                  </View>
+                </View>
+              </View>
+            </View>
+            <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStartedPress}>
+              <Icon name="chevron-right" size={20} color="#fff" />
+              <Icon name="chevron-right" size={20} color="#fff" />
+              <Text style={styles.buttonText}>
+                Get Started
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
+>>>>>>> main
       </View>
     </ImageBackground>
   );
@@ -154,11 +189,18 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 20,
+<<<<<<< HEAD
     marginBottom: 20
   },
   weatherContainer: {
     width: 300,
     height: 300,
+=======
+  },
+  weatherContainer: {
+    width: 300,
+    height: 330,
+>>>>>>> main
     backgroundColor: 'rgba(0, 0, 0, 0.3)', // Background color with opacity
     borderRadius: 12,
     padding: 20,

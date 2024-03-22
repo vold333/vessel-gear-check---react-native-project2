@@ -16,15 +16,23 @@ import NewPasswordScreen from './components/NewPasswordScreen';
 import Dashboard from './components/screens/Dashboard';
 import UserDashboard from './components/screens/UserDashboard.js';
 import RolesScreen from './components/screens/RolesScreen';
+<<<<<<< HEAD
 import VesselProfileScreen from './components/screens/VesselProfileScreen.js';
+=======
+>>>>>>> main
 
 import ChecklistScreen from './components/screens/ChecklistScreen';
 import VisualizationScreen from './components/screens/VisualizationScreen';
 import SettingsScreen from './components/screens/SettingsScreen';
 import DrawerContent from './DrawerContent'; // Import DrawerContent
+<<<<<<< HEAD
 import UserDrawerContent from './components/screens/UserDrawerContent.js';
 import PersonalizationScreen from './components/screens/PersonalizationScreen';
 import Notification from './components/screens/Notifications.js';
+=======
+import PersonalizationScreen from './components/screens/PersonalizationScreen';
+
+>>>>>>> main
 
 import CreateChecklistPage from './components/screens/CreateChecklistPage';
 import ModifyDefaultChecklist from './components/screens/ModifyDefaultChecklist';
@@ -59,6 +67,10 @@ import { DefaultShoreSafety,DefaultDamageControlSafety,DefaultFireSafety,Default
 import { DefaultContainerLogistics } from './components/screens/DefaultDeptChecklistOptions';
 import { DefaultAccomodationHospitality } from './components/screens/DefaultDeptChecklistOptions';
 
+<<<<<<< HEAD
+=======
+import Pdftry from './components/screens/Pdftry';
+>>>>>>> main
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -107,49 +119,82 @@ const AuthStack = () => (
 
 // Dashboard drawer navigator
 const DashboardDrawer = () => (
+<<<<<<< HEAD
   <Drawer.Navigator initialRouteName="Home" drawerContent={DrawerContent}>
+=======
+  <Drawer.Navigator initialRouteName="Home" drawerContent={DrawerContent} >
+>>>>>>> main
     <Drawer.Screen
       name="Home"
       component={Dashboard}
       options={{
+<<<<<<< HEAD
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
+=======
+        headerStyle: {backgroundColor: '#4539FF'},
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold'}
+>>>>>>> main
       }}
     />
     <Drawer.Screen
       name="Roles"
       component={RolesScreen}
       options={{
+<<<<<<< HEAD
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
+=======
+        headerStyle: {backgroundColor: '#4539FF'},
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold'}
+>>>>>>> main
       }}
     />
     <Drawer.Screen
       name="Checklist"
       component={ChecklistScreen}
       options={{
+<<<<<<< HEAD
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
+=======
+        headerStyle: {backgroundColor: '#4539FF'},
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold'}
+>>>>>>> main
       }}
     />
     <Drawer.Screen
       name="Visualization"
       component={VisualizationScreen}
       options={{
+<<<<<<< HEAD
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
+=======
+        headerStyle: {backgroundColor: '#4539FF'},
+        headerTintColor: '#fff',
+        headerTitleStyle: { fontWeight: 'bold'}
+>>>>>>> main
       }}
     />
     <Drawer.Screen
       name="Settings"
       component={SettingsScreen}
+<<<<<<< HEAD
       options={{
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
       }}
     />
+=======
+      options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}}} />
+>>>>>>> main
   </Drawer.Navigator>
 );
+
 
 const App = () => {
   return (<Provider store={store}>
@@ -158,6 +203,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Auth" component={AuthStack} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={DashboardDrawer} options={{ headerShown: false }} />
+<<<<<<< HEAD
         <Stack.Screen
           name="Personalization"
           component={PersonalizationScreen}
@@ -179,6 +225,28 @@ const App = () => {
         <Stack.Screen name="Radio" component={RadioComponent} options={{ headerShown: false }} />
         <Stack.Screen name="Common_check" component={Common_checkComponent} options={{ headerShown: false }} />
         <Stack.Screen name="Deck_hours_of_rest_fatigue" component={Deck_hours_of_rest_fatigueComponent} options={{ headerShown: false }} />
+=======
+        <Stack.Screen name="Personalization" component={PersonalizationScreen} options={{ headerTransparent: true, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'} }} />
+       
+       
+
+        <Stack.Screen name="CreateChecklist" component={CreateChecklistPage} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerShown: true }} />
+        <Stack.Screen name="ModifyDefaultChecklist" component={ModifyDefaultChecklist} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerShown: true }} />
+
+        <Stack.Screen name="Deck" component={DeckComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="Engine" component={EngineComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerShown: true }} />
+        <Stack.Screen name="Safety" component={SafetyComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="Logistics" component={LogisticsComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="Hospitality" component={HospitalityComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+
+        <Stack.Screen name="Documentation" component={DocumentationComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="ExternalHullPreBoarding" component={External_hull_pre_boardingComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="IsmCode" component={ISM_CodeComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="WheelHouse" component={Wheel_houseComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="Radio" component={RadioComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="CommonCheck" component={Common_checkComponent} options={{ headerShown: false }} />
+        <Stack.Screen name="DeckHoursRestFatigue" component={Deck_hours_of_rest_fatigueComponent} options={{ headerShown: false }} />
+>>>>>>> main
 
         <Stack.Screen name="EngineRoom" component={EngineRoom} options={{ headerShown: false }} />
         
@@ -195,6 +263,7 @@ const App = () => {
 
         <Stack.Screen name="accomodationhospitality" component={AccomodationHospitality} options={{ headerShown: false }} />
 
+<<<<<<< HEAD
         <Stack.Screen name="Submission" component={SubmissionComponent} options={{ headerShown: true }} />
 {/*****************************************defaultchecklist****************************************************************************************/}
         
@@ -208,6 +277,21 @@ const App = () => {
         <Stack.Screen name="DefaultSafety" component={DefaultSafetyComponent} options={{ headerShown: true }} />
         <Stack.Screen name="DefaultLogistics" component={DefaultLogisticsComponent} options={{ headerShown: true }} />
         <Stack.Screen name="DefaultHospitality" component={DefaultHospitalityComponent} options={{ headerShown: true }} />
+=======
+        <Stack.Screen name="Submission" component={SubmissionComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+{/*****************************************defaultchecklist****************************************************************************************/}
+        
+        <Stack.Screen name="default-checklist" component={DefaultChecklistPage} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+
+        <Stack.Screen name="PreArrival" component={PreArrival} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="PreDeparture" component={PreDeparture} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+
+        <Stack.Screen name="DefaultDeck" component={DefaultDeckComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="DefaultEngine" component={DefaultEngineComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="DefaultSafety" component={DefaultSafetyComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="DefaultLogistics" component={DefaultLogisticsComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="DefaultHospitality" component={DefaultHospitalityComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+>>>>>>> main
 
         <Stack.Screen name="DefaultDocumentation" component={DefaultDocumentationComponent} options={{ headerShown: false }} />
         <Stack.Screen name="DefaultExternalHullPreBoarding" component={DefaultExternalHullPreBoardingComponent} options={{ headerShown: false }} />
@@ -217,7 +301,11 @@ const App = () => {
         <Stack.Screen name="DefaultCommonCheck" component={DefaultCommonCheckComponent} options={{ headerShown: false }} />
         <Stack.Screen name="DefaultDeckHoursRestFatigue" component={DefaultDeckHoursofRestComponent} options={{ headerShown: false }} />
 
+<<<<<<< HEAD
         <Stack.Screen name="DefaultEngineRoomCheck" component={DefaultEngineRoom} options={{ headerShown: true }} />
+=======
+        <Stack.Screen name="DefaultEngineRoomCheck" component={DefaultEngineRoom} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+>>>>>>> main
 
         <Stack.Screen name="DefaultShore" component={DefaultShoreSafety} options={{ headerShown: false }} />
         <Stack.Screen name="DefaultDamageControl" component={DefaultDamageControlSafety} options={{ headerShown: false }} />
@@ -230,6 +318,7 @@ const App = () => {
 
         <Stack.Screen name="DefaultContainerLogistics" component={DefaultContainerLogistics} options={{ headerShown: false }} />
 
+<<<<<<< HEAD
          <Stack.Screen name="DefaultAccomodationHospitality" component={DefaultAccomodationHospitality} options={{ headerShown: false }} />    
      
 {/*****************************************Newchecklist****************************************************************************************/}
@@ -243,6 +332,20 @@ const App = () => {
       
       
       </Stack.Navigator>
+=======
+         <Stack.Screen name="DefaultAccomodationHospitality" component={DefaultAccomodationHospitality} options={{ headerShown: false }} />        
+{/*****************************************Newchecklist****************************************************************************************/}
+         <Stack.Screen name="NewDepartment" component={NewChecklist} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}  initialParams={{ placeholderText: "Add a new department" }} />
+         <Stack.Screen name="NewChecklist" component={NewChecklist} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+         <Stack.Screen name="AddNewItem" component={AddNewItemScreen} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
+         <Stack.Screen name="EditItemsScreen" component={EditItemsScreen} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
+         <Stack.Screen name="Properties" component={Properties} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
+      
+         <Stack.Screen name="Pdftry" component={Pdftry} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
+
+      </Stack.Navigator>
+
+>>>>>>> main
       
     </NavigationContainer></Provider>
   );

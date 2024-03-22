@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> main
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto'; // Import the icon library
 
@@ -31,6 +35,91 @@ const Signup = ({ navigation }) => {
     } else {
       setErrorMessage('');
     }
+<<<<<<< HEAD
+=======
+  };
+
+  // Validation function for Password
+  const validatePassword = (text) => {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
+    if (!text || !passwordRegex.test(text)) {
+      setErrorMessage('*Note: The Password length should be of 8 to 16.\n The Password must contain at least one capital letter,\n small letter, numeric and a special character.');
+    } else {
+      setErrorMessage('');
+    }
+  };
+
+  // Validation function for Confirm Password
+  const validateConfirmPassword = (text) => {
+    if (text !== password) {
+      setErrorMessage('*Note: Passwords do not match. Make sure they do');
+    } else {
+      setErrorMessage('');
+    }
+  };
+
+  // Validation function for Unique ID
+  const validateUniqueId = (text) => {
+    if (!text || !/^\d{6}$/.test(text)) {
+      setErrorMessage('*Note: Unique ID must be exactly 6 numbers');
+    } else {
+      setErrorMessage('');
+    }
+  };
+
+  const handleSelectPosition = (selectedPosition) => {
+    if (selectedPosition === 'Other') {
+      setIsModalVisible(false); // Close the modal
+      setPosition('Other');
+      setOtherPosition('');
+    } else {
+      setPosition(selectedPosition);
+      setOtherPosition('');
+      setIsModalVisible(false); // Close the modal
+    }
+  };
+
+  const handleSignup = () => {
+    let isValid = true;
+
+    // Check if any required field is empty
+    if (!email || !password || !confirmPassword || !name || !uniqueId) {
+      setErrorMessage('Please fill in all the fields');
+      setSuccessMessage('');
+      isValid = false;
+      return; // Stop the signup process
+    } else {
+      setErrorMessage('');
+    }
+
+    // Check if position is not selected or 'Other' is selected but other position is empty
+    if ((position.trim() === '' || position === 'Other') && otherPosition.trim() === '') {
+      setErrorMessage('*Position is required');
+      isValid = false;
+    } else {
+      setErrorMessage('');
+    }
+
+    // If any required field is empty or position is not selected, stop the signup process
+    if (!isValid) {
+      return;
+    }
+
+    // Your signup logic goes here...
+    setSuccessMessage('Signup Successful!');
+    setPosition('');
+    setOtherPosition('');
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    setName('');
+    setEmail('');
+    setUniqueId('');
+};
+
+  const navigateToLogin = () => {
+    navigation.navigate('Login');
+>>>>>>> main
   };
 
   // Validation function for Password
@@ -147,18 +236,28 @@ const Signup = ({ navigation }) => {
                 setUniqueId(text);
                 validateUniqueId(text);
               }}
+<<<<<<< HEAD
               color="black"
+=======
+>>>>>>> main
               onBlur={() => validateUniqueId(uniqueId)}
             />
             <TouchableOpacity
               style={styles.modalinput}
               onPress={() => setIsModalVisible(true)} // Open modal when clicked
             >
+<<<<<<< HEAD
               <Text style={[styles.modalOptionText, !position && { color: 'grey' }]}>
                 {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
               </Text>
             </TouchableOpacity>
 
+=======
+              <Text style={[styles.modalOptionText, position === 'Other' && { color: 'grey' }]}>
+                {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
+              </Text>
+            </TouchableOpacity>
+>>>>>>> main
             <TextInput
               style={styles.suinput}
               placeholder="Password"
@@ -168,7 +267,10 @@ const Signup = ({ navigation }) => {
                 setPassword(text);
                 validatePassword(text);
               }}
+<<<<<<< HEAD
               color="black"
+=======
+>>>>>>> main
               autoCapitalize="none"
               onBlur={() => validatePassword(password)}
             />
@@ -183,7 +285,10 @@ const Signup = ({ navigation }) => {
                 setName(text);
                 validateName(text);
               }}
+<<<<<<< HEAD
               color="black"
+=======
+>>>>>>> main
               onBlur={() => validateName(name)}
             />
             <TextInput
@@ -195,7 +300,10 @@ const Signup = ({ navigation }) => {
                 setEmail(text);
                 validateEmail(text);
               }}
+<<<<<<< HEAD
               color="black"
+=======
+>>>>>>> main
               autoCapitalize="none"
               onBlur={() => validateEmail(email)}
             />
@@ -208,7 +316,10 @@ const Signup = ({ navigation }) => {
                 setConfirmPassword(text);
                 validateConfirmPassword(text);
               }}
+<<<<<<< HEAD
               color="black"
+=======
+>>>>>>> main
               secureTextEntry={true}
               autoCapitalize="none"
               onBlur={() => validateConfirmPassword(confirmPassword)}
@@ -278,11 +389,18 @@ const Signup = ({ navigation }) => {
               <View style={styles.otherInputContainer}>
                 <TextInput
                   style={styles.otherInput}
+<<<<<<< HEAD
                   placeholder="*Specify Position"
                   placeholderTextColor="#2C43F5" // Add this line
                   value={otherPosition}
                   onChangeText={text => setOtherPosition(text)}
                   color="black"
+=======
+                  placeholder="Specify Position"
+                  placeholderTextColor="green" // Add this line
+                  value={otherPosition}
+                  onChangeText={text => setOtherPosition(text)}
+>>>>>>> main
                 />
                 <TouchableOpacity
                   style={styles.iconContainer}
@@ -391,7 +509,11 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   modalOptionText:{
+<<<<<<< HEAD
     color:'black'
+=======
+    color:'grey'
+>>>>>>> main
   },
   iconContainer: {
     padding: 10,

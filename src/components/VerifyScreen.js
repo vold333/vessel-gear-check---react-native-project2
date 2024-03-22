@@ -1,9 +1,14 @@
+<<<<<<< HEAD
 import React, { useState, useRef, useEffect } from 'react';
+=======
+import React, { useState, useRef } from 'react';
+>>>>>>> main
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const VerifyScreen = ({ navigation }) => {
   const [verificationCode, setVerificationCode] = useState(['', '', '', '']);
+<<<<<<< HEAD
   const [isAllInputsFilled, setIsAllInputsFilled] = useState(false);
   const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
 
@@ -13,6 +18,10 @@ const VerifyScreen = ({ navigation }) => {
     setIsAllInputsFilled(allInputsFilled);
   }, [verificationCode]);
 
+=======
+  const inputRefs = [useRef(null), useRef(null), useRef(null), useRef(null)];
+
+>>>>>>> main
   const handleChangeText = (index, value) => {
     const newVerificationCode = [...verificationCode];
     newVerificationCode[index] = value;
@@ -73,11 +82,15 @@ const VerifyScreen = ({ navigation }) => {
         <TouchableOpacity onPress={handleResendCode}>
           <Text style={styles.resendText}>If you didn't receive code? Resend</Text>
         </TouchableOpacity>
+<<<<<<< HEAD
         <TouchableOpacity 
           style={[styles.button, !isAllInputsFilled && styles.disabledButton]} 
           onPress={handleSubmit} 
           disabled={!isAllInputsFilled}
         >
+=======
+        <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+>>>>>>> main
           <Text style={styles.buttonText}>Verify</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleBack}>
@@ -130,6 +143,10 @@ const styles = StyleSheet.create({
     color: '#007bff',
     textDecorationLine: 'underline',
     marginBottom: 23,
+<<<<<<< HEAD
+=======
+    // eslint-disable-next-line no-dupe-keys
+>>>>>>> main
     color: '#fff',
     marginTop: 8, 
   },
@@ -157,9 +174,12 @@ const styles = StyleSheet.create({
     color: 'white',
     marginLeft: 5,
   },
+<<<<<<< HEAD
   disabledButton: {
     opacity: 0.5,
   },
+=======
+>>>>>>> main
 });
 
 export default VerifyScreen;

@@ -64,7 +64,11 @@ function ChecklistScreen() {
   const buttons = [
     { text: "Create Checklist", path: "CreateChecklist" },
     { text: "Default Checklist", path: "default-checklist" },
+<<<<<<< HEAD
     { text: "Properties", path: "Properties" },
+=======
+    { text: "Properties", path: "Pdftry" },
+>>>>>>> main
   ];
 
   return (

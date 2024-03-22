@@ -172,11 +172,19 @@ function RolesScreen(props) {
           </ScrollView>
 
           <TouchableOpacity style={styles.toggleButton} onPress={toggleVerticalContainer}>
+<<<<<<< HEAD
             <Text>{isVerticalContainerVisible ? 'Hide' : 'Show'} Roles</Text>
           </TouchableOpacity>
           {isVerticalContainerVisible && (
             <View style={styles.verticalContainer}>
               <View style={[styles.buttonContainer, { marginBottom: 10 }]}>
+=======
+            <Text style={styles.toggleButtonText}>{isVerticalContainerVisible ? 'Hide' : 'View'} Roles</Text>
+          </TouchableOpacity>
+          {isVerticalContainerVisible && (
+            <View style={styles.verticalContainer}>
+              <View style={[styles.buttonContainer,{ marginBottom: 10 }]}>
+>>>>>>> main
                 <Button
                   title="Captain"
                   onPress={() => toggleOption('Captain')}
@@ -261,10 +269,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
+<<<<<<< HEAD
     backgroundColor: '#883AE1',
     padding: 10,
     borderRadius: 5,
   },
+=======
+    backgroundColor: '#4539FF',
+    padding: 10,
+    borderRadius: 5,
+  },
+  toggleButtonText:{
+    color:'white',
+    fontWeight:'bold'
+  },
+>>>>>>> main
   taskCompletionItem: {
     marginBottom: 10,
     backgroundColor: '#19B00E',
@@ -322,7 +341,11 @@ const styles = StyleSheet.create({
     marginRight: 10, // Take full width of the container
     borderRadius: 30,
     padding: 20,
+<<<<<<< HEAD
     marginTop: 15,
+=======
+    marginBottom: 20,
+>>>>>>> main
   },
   shadow: {
     shadowColor: 'grey',

@@ -8,15 +8,19 @@ const Login = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+<<<<<<< HEAD
 
   // Admin credentials for demonstration purposes
   const ADMIN_EMAIL = 'captain@gmail.com';
   const ADMIN_PASSWORD = 'captain';
+=======
+>>>>>>> main
 
   const handleLogin = () => {
     if (!email.trim() || !password.trim()) {
       setErrorMessage('*Note: Please enter email and password');
       return;
+<<<<<<< HEAD
     }
 
     if (!validateEmail(email)) {
@@ -35,6 +39,19 @@ const Login = ({ navigation }) => {
     }
     
      // Reset fields
+=======
+    }
+
+    if (!validateEmail(email)) {
+      setErrorMessage('*Note: Please enter a valid email address');
+      return;
+    }
+
+    // Clear error message
+    setErrorMessage('');
+
+    navigation.navigate('Dashboard');
+>>>>>>> main
     setEmail('');
     setPassword('');
   };
@@ -127,7 +144,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 25,
+<<<<<<< HEAD
     paddingHorizontal: 15,
+=======
+    paddingHorizontal: 10,
+>>>>>>> main
     marginBottom: 20,
     backgroundColor: '#fff',
     color:'black',
@@ -140,7 +161,11 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 25,
     marginBottom: 20,
+<<<<<<< HEAD
     paddingHorizontal: 15,
+=======
+    paddingHorizontal: 10,
+>>>>>>> main
     backgroundColor: '#fff',
   },
   passwordInput: {

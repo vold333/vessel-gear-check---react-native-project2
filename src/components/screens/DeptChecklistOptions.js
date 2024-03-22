@@ -738,7 +738,11 @@ const Documentationquestions = [
     
   
     const handleSubmit = () => {
+<<<<<<< HEAD
       dispatch(setNextPath('External_hull_pre_boarding'));// Set the next path
+=======
+      dispatch(setNextPath('ExternalHullPreBoarding'));// Set the next path
+>>>>>>> main
     
       navigation.navigate('Submission');
     };
@@ -775,7 +779,11 @@ export const External_hull_pre_boardingComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
+<<<<<<< HEAD
     dispatch(setNextPath('ISM_Code'));// Set the next path
+=======
+    dispatch(setNextPath('IsmCode'));// Set the next path
+>>>>>>> main
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
    
     navigation.navigate('Submission'); // Navigate to the submission component
@@ -815,14 +823,22 @@ export const ISM_CodeComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
+<<<<<<< HEAD
     dispatch(setNextPath('Wheel_house'));// Set the next path
+=======
+    dispatch(setNextPath('WheelHouse'));// Set the next path
+>>>>>>> main
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
     navigation.navigate('Submission'); // Navigate to the submission component
     
   // Navigate to submission component as before
   };
   const handb=()=>{
+<<<<<<< HEAD
     navigation.navigate('External_hull_pre_boarding');
+=======
+    navigation.navigate('ExternalHullPreBoarding');
+>>>>>>> main
   }
 
   return (
@@ -861,7 +877,11 @@ export const Wheel_houseComponent = () => {
   // Navigate to submission component as before
   };
   const handb=()=>{
+<<<<<<< HEAD
     navigation.navigate('ISM_Code');
+=======
+    navigation.navigate('IsmCode');
+>>>>>>> main
   }
 
   return (
@@ -893,14 +913,22 @@ export const RadioComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
+<<<<<<< HEAD
     dispatch(setNextPath('Common_check'));// Set the next path
+=======
+    dispatch(setNextPath('CommonCheck'));// Set the next path
+>>>>>>> main
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
     navigation.navigate('Submission'); // Navigate to the submission component
     
   // Navigate to submission component as before
   };
   const handb=()=>{
+<<<<<<< HEAD
     navigation.navigate('Wheel_house');
+=======
+    navigation.navigate('WheelHouse');
+>>>>>>> main
   }
 
   return (
@@ -932,7 +960,11 @@ export const Common_checkComponent = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleSubmit = () => {
+<<<<<<< HEAD
     dispatch(setNextPath('Deck_hours_of_rest_fatigue'));// Set the next path
+=======
+    dispatch(setNextPath('DeckHoursRestFatigue'));// Set the next path
+>>>>>>> main
     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
     navigation.navigate('Submission'); // Navigate to the submission component
     
