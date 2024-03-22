@@ -56,7 +56,11 @@ const styles = StyleSheet.create({
   },
   personalizationButton: {
     borderRadius: 25,
+<<<<<<< Updated upstream
     backgroundColor: '#6544EC',
+=======
+    backgroundColor: '#D118D4',
+>>>>>>> Stashed changes
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 20,

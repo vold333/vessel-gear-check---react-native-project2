@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Fontisto'; // Import the icon library
 
@@ -115,6 +115,17 @@ const Signup = ({ navigation }) => {
     navigation.navigate('Login');
   };
 
+  useEffect(() => {
+    let timer;
+    if (successMessage) {
+      timer = setTimeout(() => {
+        setSuccessMessage('');
+      }, 10000); // 10 seconds
+    }
+
+    return () => clearTimeout(timer);
+  }, [successMessage]);
+
   return (
     <ImageBackground 
       source={require('../assets/images/signup.jpg')}
@@ -136,16 +147,18 @@ const Signup = ({ navigation }) => {
                 setUniqueId(text);
                 validateUniqueId(text);
               }}
+              color="black"
               onBlur={() => validateUniqueId(uniqueId)}
             />
             <TouchableOpacity
               style={styles.modalinput}
               onPress={() => setIsModalVisible(true)} // Open modal when clicked
             >
-              <Text style={[styles.modalOptionText, position === 'Other' && { color: 'grey' }]}>
+              <Text style={[styles.modalOptionText, !position && { color: 'grey' }]}>
                 {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
               </Text>
             </TouchableOpacity>
+
             <TextInput
               style={styles.suinput}
               placeholder="Password"
@@ -155,6 +168,7 @@ const Signup = ({ navigation }) => {
                 setPassword(text);
                 validatePassword(text);
               }}
+              color="black"
               autoCapitalize="none"
               onBlur={() => validatePassword(password)}
             />
@@ -169,6 +183,7 @@ const Signup = ({ navigation }) => {
                 setName(text);
                 validateName(text);
               }}
+              color="black"
               onBlur={() => validateName(name)}
             />
             <TextInput
@@ -180,6 +195,7 @@ const Signup = ({ navigation }) => {
                 setEmail(text);
                 validateEmail(text);
               }}
+              color="black"
               autoCapitalize="none"
               onBlur={() => validateEmail(email)}
             />
@@ -192,6 +208,7 @@ const Signup = ({ navigation }) => {
                 setConfirmPassword(text);
                 validateConfirmPassword(text);
               }}
+              color="black"
               secureTextEntry={true}
               autoCapitalize="none"
               onBlur={() => validateConfirmPassword(confirmPassword)}
@@ -261,10 +278,11 @@ const Signup = ({ navigation }) => {
               <View style={styles.otherInputContainer}>
                 <TextInput
                   style={styles.otherInput}
-                  placeholder="Specify Position"
-                  placeholderTextColor="green" // Add this line
+                  placeholder="*Specify Position"
+                  placeholderTextColor="#2C43F5" // Add this line
                   value={otherPosition}
                   onChangeText={text => setOtherPosition(text)}
+                  color="black"
                 />
                 <TouchableOpacity
                   style={styles.iconContainer}
@@ -373,7 +391,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   modalOptionText:{
-    color:'grey'
+    color:'black'
   },
   iconContainer: {
     padding: 10,

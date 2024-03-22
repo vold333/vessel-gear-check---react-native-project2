@@ -103,38 +103,36 @@ const Landing = ({ navigation }) => {
         {loading ? (
           <Text style={styles.loadingText}>Loading...</Text>
         ) : (
-          <>
-            <View style={styles.weatherContainer}>
-              <Image source={require('../assets/images/cloud.png')} style={styles.weatherIcon} />
-              <Text style={styles.temperature}>{temperature}</Text>
-              <Text style={styles.location}>📍{location}, {country}</Text>
-              <Text style={styles.dateInfo}>{dateInfo}</Text>
-              <View style={styles.dataContainer}>
-                <View style={styles.element}>
-                  <Image source={require('../assets/images/humidity.png')} style={styles.icon} />
-                  <View style={styles.data}>
-                    <Text style={styles.text}>{humidity}</Text>
-                    <Text style={styles.text}>Humidity</Text>
-                  </View>
+          <View style={styles.weatherContainer}>
+            <Image source={require('../assets/images/cloud.png')} style={styles.weatherIcon} />
+            <Text style={styles.temperature}>{temperature}</Text>
+            <Text style={styles.location}>📍{location}, {country}</Text>
+            <Text style={styles.dateInfo}>{dateInfo}</Text>
+            <View style={styles.dataContainer}>
+              <View style={styles.element}>
+                <Image source={require('../assets/images/humidity.png')} style={styles.icon} />
+                <View style={styles.data}>
+                  <Text style={styles.text}>{humidity}</Text>
+                  <Text style={styles.text}>Humidity</Text>
                 </View>
-                <View style={styles.element}>
-                  <Image source={require('../assets/images/wind.png')} style={styles.icon} />
-                  <View style={styles.data}>
-                    <Text style={styles.text}>{windSpeed}</Text>
-                    <Text style={styles.text}>Wind Speed</Text>
-                  </View>
+              </View>
+              <View style={styles.element}>
+                <Image source={require('../assets/images/wind.png')} style={styles.icon} />
+                <View style={styles.data}>
+                  <Text style={styles.text}>{windSpeed}</Text>
+                  <Text style={styles.text}>Wind Speed</Text>
                 </View>
               </View>
             </View>
-            <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStartedPress}>
-              <Icon name="chevron-right" size={20} color="#fff" />
-              <Icon name="chevron-right" size={20} color="#fff" />
-              <Text style={styles.buttonText}>
-                Get Started
-              </Text>
-            </TouchableOpacity>
-          </>
+          </View>
         )}
+        <TouchableOpacity style={styles.buttonContainer} onPress={handleGetStartedPress}>
+          <Icon name="chevron-right" size={20} color="#fff" />
+          <Icon name="chevron-right" size={20} color="#fff" />
+          <Text style={styles.buttonText}>
+            Get Started
+          </Text>
+        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
@@ -156,6 +154,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontWeight: 'bold',
     fontSize: 20,
+    marginBottom: 20
   },
   weatherContainer: {
     width: 300,

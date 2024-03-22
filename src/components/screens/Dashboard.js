@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     width: '98%', // Set the width to occupy 98% of the screen width
     marginTop: 20,
     backgroundColor: '#D1D4DA', // Light grey background color
-    borderRadius: 10,
+    borderRadius: 25,
     padding: 10,
     alignItems: 'center', // Center the content horizontally
   },
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     marginRight: 10, // Take full width of the container
     borderRadius: 30,
     padding: 20,
-    marginBottom: 20,
+    marginTop: 15,
   },
   cardTitle: {
     fontSize: 16,
