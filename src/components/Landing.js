@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   },
   weatherContainer: {
     width: 300,
-    height: 300,
+    height: 330,
     backgroundColor: 'rgba(0, 0, 0, 0.3)', // Background color with opacity
     borderRadius: 12,
     padding: 20,

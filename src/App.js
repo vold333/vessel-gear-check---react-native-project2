@@ -56,6 +56,7 @@ import { DefaultShoreSafety,DefaultDamageControlSafety,DefaultFireSafety,Default
 import { DefaultContainerLogistics } from './components/screens/DefaultDeptChecklistOptions';
 import { DefaultAccomodationHospitality } from './components/screens/DefaultDeptChecklistOptions';
 
+import Pdftry from './components/screens/Pdftry';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -158,6 +159,8 @@ const App = () => {
         <Stack.Screen name="Dashboard" component={DashboardDrawer} options={{ headerShown: false }} />
         <Stack.Screen name="Personalization" component={PersonalizationScreen} options={{ headerTransparent: true, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'} }} />
        
+       
+
         <Stack.Screen name="CreateChecklist" component={CreateChecklistPage} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerShown: true }} />
         <Stack.Screen name="ModifyDefaultChecklist" component={ModifyDefaultChecklist} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerShown: true }} />
 
@@ -232,7 +235,11 @@ const App = () => {
          <Stack.Screen name="AddNewItem" component={AddNewItemScreen} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
          <Stack.Screen name="EditItemsScreen" component={EditItemsScreen} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
          <Stack.Screen name="Properties" component={Properties} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
+      
+         <Stack.Screen name="Pdftry" component={Pdftry} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }}/>
+
       </Stack.Navigator>
+
       
     </NavigationContainer></Provider>
   );
