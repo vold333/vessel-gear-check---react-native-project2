@@ -1,7 +1,10 @@
+/* eslint-disable prettier/prettier */
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, ScrollView, ImageBackground, PermissionsAndroid, Platform } from 'react-native';
 import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
+import RNHTMLtoPDF from 'react-native-html-to-pdf'; // Import react-native-html-to-pdf
+
 
 const VesselProfileScreen = () => {
   const [inputs, setInputs] = useState([
@@ -12,7 +15,7 @@ const VesselProfileScreen = () => {
     { label: 'Vessel Name', value: '', maxLength: 20 },
     { label: 'Type and Class', value: '', maxLength: 20 },
     { label: 'Country', value: '', maxLength: 20 },
-    { label: 'IMO Number', value: '', maxLength: 7, keyboardType: 'numeric' },
+    { label: 'IMO Number', value: '', maxLength:  20, keyboardType: 'numeric' },
     { label: 'IMO Type', value: '', maxLength: 20 },
     { label: 'Registry Info', value: '', maxLength: 20 },
     { label: 'Maintenance Schedule', value: '', maxLength: 20 },
@@ -21,6 +24,8 @@ const VesselProfileScreen = () => {
   const [fileName, setFileName] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [reportSuccessMessage, setReportSuccessMessage] = useState('');
+
 
   const handleInputChange = (text, index) => {
     const newInputs = [...inputs];
@@ -53,6 +58,81 @@ const VesselProfileScreen = () => {
     }
   };
 
+  const handleReport = async () => {
+    try {
+      const timestamp = new Date().getTime(); // Get current timestamp
+      const options = {
+        html: generateHTMLReport(), // Generate HTML for the report
+        fileName: `Vessel_Report_${timestamp}`, // Set the file name with timestamp
+        directory: 'Documents', // Save in Documents directory (or use other directories as per requirement)
+      };
+  
+      const pdf = await RNHTMLtoPDF.convert(options); // Convert HTML to PDF
+  
+      console.log('PDF generated:', pdf);
+  
+      setReportSuccessMessage('Report generated successfully!'); // Set success message
+  
+      // After setting the success message, you can display the file location
+      // Assuming pdf.filePath contains the file location
+      setFileName(pdf.filePath);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      setErrorMessage('Error generating PDF. Please try again.'); // Set error message if PDF generation fails
+    }
+  };
+  
+  
+
+  const generateHTMLReport = () => {
+    // Define the HTML with style for the table and other elements
+    let html = `
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 24px; }
+          h1 { color: navy; text-align: center; }
+          .report-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+          .report-table th, .report-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+          .report-table th { background-color: #8C8CFF; color: white; }
+          .container { padding: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <h1>Vessel Report</h1>
+          <table class="report-table">
+            <thead>
+              <tr>
+                <th>Label</th>
+                <th>Value</th>
+              </tr>
+            </thead>
+            <tbody>
+    `;
+  
+    // Iterate over each input field and add rows to the table
+    inputs.forEach(input => {
+      html += `
+              <tr>
+                <td>${input.label}</td>
+                <td>${input.value}</td>
+              </tr>
+      `;
+    });
+  
+    // Close the table, container div, and body/html tags
+    html += `
+            </tbody>
+          </table>
+        </div>
+      </body>
+      </html>
+    `;
+  
+    return html;
+  }; 
+
   const requestExternalStoragePermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -77,7 +157,8 @@ const VesselProfileScreen = () => {
   
     const dirs = RNFetchBlob.fs.dirs;
     const folderPath = `${dirs.DownloadDir}/ShipUploadedPDFs`;
-    const filePath = `${folderPath}/${name}`;
+const filePath = `${folderPath}/${name}`;
+
   
     try {
       const isDir = await RNFetchBlob.fs.isDir(folderPath);
@@ -86,6 +167,7 @@ const VesselProfileScreen = () => {
       }
       await RNFetchBlob.fs.cp(uri, filePath);
       console.log(`File copied to: ${filePath}`);
+
     } catch (error) {
       console.error('Error copying file:', error);
     }
@@ -104,9 +186,14 @@ useEffect(() => {
       setSuccessMessage('');
     }, 10000); // 10 seconds
   }
+  if (reportSuccessMessage) {
+    timer = setTimeout(() => {
+      setReportSuccessMessage('');
+    }, 10000); // 10 seconds
+  }
 
   return () => clearTimeout(timer);
-}, [successMessage]); // Run this effect whenever successMessage changes
+}, [successMessage], [reportSuccessMessage]); // Run this effect whenever successMessage changes
 
 // Inside your handleSubmit function
 const handleSubmit = async () => {
@@ -151,10 +238,14 @@ const handleSubmit = async () => {
             <TouchableOpacity onPress={handleSubmit} style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={handleReport} style={styles.reportButton}>
+             <Text style={styles.reportButtonText}>Report</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={handleBack} style={styles.button}>
               <Text style={styles.buttonText}>Back</Text>
             </TouchableOpacity>
           </View>
+          {reportSuccessMessage ? <Text style={styles.successMessage}>{reportSuccessMessage}</Text> : null}
           {successMessage ? <Text style={styles.successMessage}>{successMessage}</Text> : null}
         </ScrollView>
       </View>
@@ -239,8 +330,20 @@ const styles = StyleSheet.create({
   fileNameText: {
   color: 'black',
   },
+  reportButton: {
+    position: 'absolute',
+    left:120,
+    marginBottom:20,// Adjust as needed to position the button
+    backgroundColor: '#FF0000', // Red color
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+  },
+  reportButtonText: {
+    color: '#FFFFFF', // White color for text
+    fontWeight: 'bold',
+  },
 
 });
-  
-export default VesselProfileScreen;
 
+export default VesselProfileScreen;
