@@ -114,11 +114,6 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
-<<<<<<< Updated upstream
-=======
-        headerTitleStyle: { fontWeight: 'bold'},
-        headerRight: () => <Notification />,
->>>>>>> Stashed changes
       }}
     />
     <Drawer.Screen
@@ -127,21 +122,6 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
-<<<<<<< Updated upstream
-=======
-        headerTitleStyle: { fontWeight: 'bold'},
-        headerRight: () => <Notification />,
-      }}
-    />
-    <Drawer.Screen
-      name="Vessel Profile"
-      component={VesselProfileScreen}
-      options={{
-        headerStyle: {backgroundColor: '#4539FF'},
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'},
-        headerRight: () => <Notification />,
->>>>>>> Stashed changes
       }}
     />
     <Drawer.Screen
@@ -150,11 +130,6 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
-<<<<<<< Updated upstream
-=======
-        headerTitleStyle: { fontWeight: 'bold'},
-        headerRight: () => <Notification />,
->>>>>>> Stashed changes
       }}
     />
     <Drawer.Screen
@@ -163,53 +138,16 @@ const DashboardDrawer = () => (
       options={{
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
-<<<<<<< Updated upstream
-=======
-        headerTitleStyle: { fontWeight: 'bold'},
-        headerRight: () => <Notification />,
       }}
     />
     <Drawer.Screen
       name="Settings"
       component={SettingsScreen}
-      options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}, headerRight: () => <Notification />,}} />
-  </Drawer.Navigator>
-);
-
-// UserDashboard drawer navigator
-const UserDashboardDrawer = () => (
-  <Drawer.Navigator initialRouteName="Home" drawerContent={UserDrawerContent} >
-     <Drawer.Screen
-      name="Home"
-      component={UserDashboard}
-      options={{
-        headerStyle: {backgroundColor: '#084A98'},
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
-      }}
-    />
-    <Drawer.Screen
-      name="Checklist"
-      component={ChecklistScreen}
-      options={{
-        headerStyle: {backgroundColor: '#084A98'},
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold'}
->>>>>>> Stashed changes
-      }}
-    />
-    <Drawer.Screen
-      name="Settings"
-      component={SettingsScreen}
-<<<<<<< Updated upstream
       options={{
         headerStyle: {backgroundColor: '#333'},
         headerTintColor: '#fff',
       }}
     />
-=======
-      options={{ headerStyle: {backgroundColor: '#084A98'}, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'}}} />
->>>>>>> Stashed changes
   </Drawer.Navigator>
 );
 
@@ -220,16 +158,10 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name="Auth" component={AuthStack} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={DashboardDrawer} options={{ headerShown: false }} />
-<<<<<<< Updated upstream
         <Stack.Screen
           name="Personalization"
           component={PersonalizationScreen}
         />
-=======
-        <Stack.Screen name="UserDashboard" component={UserDashboardDrawer} options={{ headerShown: false }} />
-        <Stack.Screen name="Personalization" component={PersonalizationScreen} options={{ headerTransparent: true, headerTintColor: '#fff', headerTitleStyle: { fontWeight: 'bold'} }} />
-       
->>>>>>> Stashed changes
        
         <Stack.Screen name="CreateChecklist" component={CreateChecklistPage} options={{ headerShown: true }} />
         <Stack.Screen name="ModifyDefaultChecklist" component={ModifyDefaultChecklist} options={{ headerShown: true }} />
