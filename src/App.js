@@ -36,6 +36,7 @@ import { Properties } from './components/screens/Properties';
 
 
 import { SubmissionComponent } from './components/screens/DefaultDeptChecklistOptions';
+import { SubmissionComponent2 } from './components/screens/DeptChecklistOptions';
 import {DeckComponent,EngineComponent,SafetyComponent,LogisticsComponent,HospitalityComponent} from './components/screens/DeptChecklistOptions';
 
 import { DocumentationComponent,External_hull_pre_boardingComponent,ISM_CodeComponent,Wheel_houseComponent,RadioComponent,Common_checkComponent,Deck_hours_of_rest_fatigueComponent } from './components/screens/DeptChecklistOptions';
@@ -236,6 +237,7 @@ const App = () => {
         <Stack.Screen name="accomodationhospitality" component={AccomodationHospitality} options={{ headerShown: false }} />
 
         <Stack.Screen name="Submission" component={SubmissionComponent} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
+        <Stack.Screen name="submission2" component={SubmissionComponent2} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
 {/*****************************************defaultchecklist****************************************************************************************/}
         
         <Stack.Screen name="default-checklist" component={DefaultChecklistPage} options={{ headerStyle: {backgroundColor: '#4539FF'}, headerTintColor: '#fff',headerShown: true }} />
