@@ -15,7 +15,7 @@ function SettingsScreen(props) {
     <View style={styles.container}>
       <View style={styles.middleContainer}>
         <ImageBackground
-          source={require('../../assets/images/sailor.jpg')}
+          source={require('../../assets/images/vessel.jpg')}
           style={styles.backgroundImage}
         >
           <View style={styles.overlay}>
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   },
   personalizationButton: {
     borderRadius: 25,
-    backgroundColor: '#D118D4',
+    backgroundColor: '#4539FF',
     paddingVertical: 10,
     paddingHorizontal: 20,
     marginBottom: 20,

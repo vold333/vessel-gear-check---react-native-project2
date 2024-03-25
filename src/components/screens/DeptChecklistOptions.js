@@ -279,7 +279,7 @@ const styles16 = StyleSheet.create({
 /**************************************************************************************************************/
 
 /*****if prob use this ****SubmissionComponent*****for modifydefault backend*************************************************** */
-{/*export const SubmissionComponent = () => {
+export const SubmissionComponent2 = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const nextPath = useSelector(state => state.navigation?.nextPath);
@@ -362,7 +362,7 @@ const styles22 = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-});*/}
+});
 /****************************************ChecklistQuestionTemplateComponent******************************************** */
 
 export const ChecklistQuestionTemplateComponent = ({ questions, onSubmit, text,onBack}) => {
@@ -740,7 +740,7 @@ const Documentationquestions = [
     const handleSubmit = () => {
       dispatch(setNextPath('ExternalHullPreBoarding'));// Set the next path
     
-      navigation.navigate('Submission');
+      navigation.navigate('submission2');
     };
     const handb=()=>{
       navigation.navigate('Deck');
@@ -776,11 +776,11 @@ export const External_hull_pre_boardingComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setNextPath('IsmCode'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
    
-    navigation.navigate('Submission'); // Navigate to the submission component
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('Documentation');
@@ -816,10 +816,10 @@ export const ISM_CodeComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setNextPath('WheelHouse'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('ExternalHullPreBoarding');
@@ -855,10 +855,10 @@ export const Wheel_houseComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setNextPath('Radio'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('IsmCode');
@@ -894,10 +894,10 @@ export const RadioComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setNextPath('CommonCheck'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('WheelHouse');
@@ -933,10 +933,10 @@ export const Common_checkComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setNextPath('DeckHoursRestFatigue'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('Radio');
@@ -973,10 +973,10 @@ export const Deck_hours_of_rest_fatigueComponent = () => {
   const dispatch = useDispatch();
   const handleSubmit = () => {
     dispatch(setNextPath('ModifyDefaultChecklist'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('Common_check');
@@ -1015,10 +1015,10 @@ export const EngineRoom = () => {
 
   const handleSubmit = () => {
     dispatch(setNextPath('ModifyDefaultChecklist'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   return <ChecklistQuestionTemplateComponent questions={EngineQuestions} text="Engine" onSubmit={handleSubmit}    />;
 };
@@ -1045,10 +1045,10 @@ const ShoreSafetyQuestions = [
 
   const handleSubmit = () => {
     dispatch(setNextPath('fireprotect'));// Set the next path
-    //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-    navigation.navigate('Submission'); // Navigate to the submission component
+    //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+    navigation.navigate('submission2'); // Navigate to the submission2 component
     
-  // Navigate to submission component as before
+  // Navigate to submission2 component as before
   };
   const handb=()=>{
     navigation.navigate('Safety');
@@ -1073,10 +1073,10 @@ export const DamageControlSafety=()=> {
  
    const handleSubmit = () => {
      dispatch(setNextPath('survival'));// Set the next path
-     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-     navigation.navigate('Submission'); // Navigate to the submission component
+     //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+     navigation.navigate('submission2'); // Navigate to the submission2 component
      
-   // Navigate to submission component as before
+   // Navigate to submission2 component as before
    };
    const handb=()=>{
     navigation.navigate('fireprotect');
@@ -1101,10 +1101,10 @@ const FireSafetyQuestions = [
  
    const handleSubmit = () => {
      dispatch(setNextPath('damagecontrol'));// Set the next path
-     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-     navigation.navigate('Submission'); // Navigate to the submission component
+     //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+     navigation.navigate('submission2'); // Navigate to the submission2 component
      
-   // Navigate to submission component as before
+   // Navigate to submission2 component as before
    };
    const handb=()=>{
     navigation.navigate('shore');
@@ -1128,10 +1128,10 @@ const SurvivalSafetyQuestions = [
    
      const handleSubmit = () => {
        dispatch(setNextPath('igs'));// Set the next path
-       //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-       navigation.navigate('Submission'); // Navigate to the submission component
+       //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+       navigation.navigate('submission2'); // Navigate to the submission2 component
        
-     // Navigate to submission component as before
+     // Navigate to submission2 component as before
      };
      const handb=()=>{
       navigation.navigate('damagecontrol');
@@ -1156,10 +1156,10 @@ const IGSSafetyQuestions = [
    
      const handleSubmit = () => {
        dispatch(setNextPath('crude-oil'));// Set the next path
-       //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-       navigation.navigate('Submission'); // Navigate to the submission component
+       //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+       navigation.navigate('submission2'); // Navigate to the submission2 component
        
-     // Navigate to submission component as before
+     // Navigate to submission2 component as before
      };
      const handb=()=>{
       navigation.navigate('survival');
@@ -1184,10 +1184,10 @@ const CrudeOilSafetyQuestions = [
    
      const handleSubmit = () => {
        dispatch(setNextPath('liquid-chemicals'));// Set the next path
-       //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-       navigation.navigate('Submission'); // Navigate to the submission component
+       //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+       navigation.navigate('submission2'); // Navigate to the submission2 component
        
-     // Navigate to submission component as before
+     // Navigate to submission2 component as before
      };
      const handb=()=>{
       navigation.navigate('igs');
@@ -1212,10 +1212,10 @@ export const LiquiedChemicalsSafety=()=> {
  
    const handleSubmit = () => {
      dispatch(setNextPath('liquefied-gases'));// Set the next path
-     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-     navigation.navigate('Submission'); // Navigate to the submission component
+     //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+     navigation.navigate('submission2'); // Navigate to the submission2 component
      
-   // Navigate to submission component as before
+   // Navigate to submission2 component as before
    };
    const handb=()=>{
     navigation.navigate('crude-oil');
@@ -1240,10 +1240,10 @@ const LiquefiedGasSafetyQuestions = [
  
    const handleSubmit = () => {
      dispatch(setNextPath('ModifyDefaultChecklist'));// Set the next path
-     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-     navigation.navigate('Submission'); // Navigate to the submission component
+     //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+     navigation.navigate('submission2'); // Navigate to the submission2 component
      
-   // Navigate to submission component as before
+   // Navigate to submission2 component as before
    };
    const handb=()=>{
     navigation.navigate('liquid-chemicals');
@@ -1275,10 +1275,10 @@ const ContainerLogisticsQuestions = [
  
    const handleSubmit = () => {
      dispatch(setNextPath('ModifyDefaultChecklist'));// Set the next path
-     //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-     navigation.navigate('Submission'); // Navigate to the submission component
+     //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+     navigation.navigate('submission2'); // Navigate to the submission2 component
      
-   // Navigate to submission component as before
+   // Navigate to submission2 component as before
    };
   
 
@@ -1305,10 +1305,10 @@ const AccomodationHosipitalityQuestions = [
    
      const handleSubmit = () => {
        dispatch(setNextPath('ModifyDefaultChecklist'));// Set the next path
-       //navigate('/submission', { state: { nextPath: '/external-hull-pre-boarding' } });
-       navigation.navigate('Submission'); // Navigate to the submission component
+       //navigate('/submission2', { state: { nextPath: '/external-hull-pre-boarding' } });
+       navigation.navigate('submission2'); // Navigate to the submission2 component
        
-     // Navigate to submission component as before
+     // Navigate to submission2 component as before
      };
 
     return <ChecklistQuestionTemplateComponent questions={AccomodationHosipitalityQuestions} text="Accomodation Hosipitality" onSubmit={handleSubmit} />;
