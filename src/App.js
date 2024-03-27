@@ -150,7 +150,7 @@ const DashboardDrawer = () => (
       }}
     />
     <Drawer.Screen
-      name="Visualization"
+      name="Report"
       component={VisualizationScreen}
       options={{
         headerStyle: {backgroundColor: '#4539FF'},

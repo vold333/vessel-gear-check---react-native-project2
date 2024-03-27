@@ -5,13 +5,12 @@ import DocumentPicker from 'react-native-document-picker';
 import RNFetchBlob from 'rn-fetch-blob';
 import RNHTMLtoPDF from 'react-native-html-to-pdf'; // Import react-native-html-to-pdf
 
-
 const VesselProfileScreen = () => {
   const [inputs, setInputs] = useState([
     { label: 'Captain Name', value: '', maxLength: 20 },
     { label: 'Name of the chief engineer', value: '', maxLength: 20 },
     { label: 'Name of the chief mate', value: '', maxLength: 20 },
-    { label: 'Vessel ID', value: '', maxLength: 20 },
+    { label: 'Vessel ID', value: '', maxLength: 20, keyboardType: 'numeric' },
     { label: 'Vessel Name', value: '', maxLength: 20 },
     { label: 'Type and Class', value: '', maxLength: 20 },
     { label: 'Country', value: '', maxLength: 20 },
@@ -202,7 +201,7 @@ const handleSubmit = async () => {
   if (allFieldsFilled) {
     setSuccessMessage('Submitted successfully!!!'); // Update errorMessage state with success message
     console.log('Submitted:', inputs); // Log the submitted data
-    setInputs(inputs.map(input => ({ ...input, value: '' }))); // Clear input values
+    // setInputs(inputs.map(input => ({ ...input, value: '' }))); // Clear input values - Remove this line
     setFileName(''); // Clear file name
   } else {
     setErrorMessage('*Please fill all the required fields.'); // Display error message
@@ -331,7 +330,7 @@ const styles = StyleSheet.create({
   },
   reportButton: {
     position: 'absolute',
-    left:120,
+    left: '40%',
     marginBottom:20,// Adjust as needed to position the button
     backgroundColor: '#FF0000', // Red color
     paddingVertical: 10,

@@ -10,7 +10,7 @@ const DrawerList = [
   { icon: 'account-multiple', label: 'Roles', navigateTo: 'Roles' },
   { icon: 'ship-wheel', label: 'Vessel Profile', navigateTo: 'Vessel Profile' },
   { icon: 'clipboard-text-outline', label: 'Checklist', navigateTo: 'Checklist' },
-  { icon: 'chart-bar', label: 'Visualization', navigateTo: 'Visualization' },
+  { icon: 'chart-bar', label: 'Report', navigateTo: 'Report' },
   { icon: 'cog-outline', label: 'Settings', navigateTo: 'Settings' },
   { icon: 'logout', label: 'Sign out', navigateTo: 'Login' },
 ];
