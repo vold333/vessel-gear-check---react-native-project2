@@ -50,7 +50,7 @@ function PersonalizationScreen(props) {
     }
   
     if ((position.trim() === '' || position === 'Other') && otherPosition.trim() === '') {
-      setPosition('*Position is required');
+      setPosition('*Department is required');
       isValid = false;
     } else {
       setPosition('');
@@ -127,7 +127,7 @@ function PersonalizationScreen(props) {
               style={styles.input}
               onPress={() => setIsModalVisible(true)} // Open modal when clicked
             >
-              <Text style={styles.modalOptionText}>{position ? (position === 'Other' ? `Other: ${otherPosition || 'Click again to Specify'}` : position) : 'Select Position'}</Text>
+              <Text style={styles.modalOptionText}>{position ? (position === 'Other' ? `Other: ${otherPosition || 'Click again to Specify'}` : position) : 'Select Department'}</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.buttonContainer}>
@@ -195,7 +195,7 @@ function PersonalizationScreen(props) {
               <View style={styles.otherInputContainer}>
                 <TextInput
                   style={styles.otherInput}
-                  placeholder="Specify Position"
+                  placeholder="Specify Department"
                   value={otherPosition}
                   onChangeText={text => setOtherPosition(text)}
                 />

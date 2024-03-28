@@ -88,7 +88,7 @@ const Signup = ({ navigation }) => {
 
     // Check if position is not selected or 'Other' is selected but other position is empty
     if ((position.trim() === '' || position === 'Other') && otherPosition.trim() === '') {
-      setErrorMessage('*Position is required');
+      setErrorMessage('*Department is required');
       isValid = false;
     } else {
       setErrorMessage('');
@@ -155,7 +155,7 @@ const Signup = ({ navigation }) => {
               onPress={() => setIsModalVisible(true)} // Open modal when clicked
             >
               <Text style={[styles.modalOptionText, !position && { color: 'grey' }]}>
-                {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Position'}
+                {position ? (position === 'Other' ? `${otherPosition || '*Click to Specify'}` : position) : 'Select Department'}
               </Text>
             </TouchableOpacity>
 
@@ -278,7 +278,7 @@ const Signup = ({ navigation }) => {
               <View style={styles.otherInputContainer}>
                 <TextInput
                   style={styles.otherInput}
-                  placeholder="*Specify Position"
+                  placeholder="*Specify Department"
                   placeholderTextColor="#2C43F5" // Add this line
                   value={otherPosition}
                   onChangeText={text => setOtherPosition(text)}
